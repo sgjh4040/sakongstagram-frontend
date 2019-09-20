@@ -1,9 +1,11 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className="App"/>
-  );
-}
+import {ThemeProvider} from "styled-components";
+import GlobalStyles from "../Styles/GlobalStyles";
+import Theme from "../Styles/Theme";
 
-export default App;
+export default ()=>(
+  <ThemeProvider theme={Theme}>
+    <GlobalStyles/>
+  </ThemeProvider>
+)
