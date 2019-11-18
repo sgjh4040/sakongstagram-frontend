@@ -11,7 +11,7 @@ const LoggedOutRoutes= () => <><Route exact path="/" component={Auth}/></>
 
 const AppRouter = ({isLoggedIn})=><Router><Switch>{isLoggedIn ?<LoggedInRoutes/>:<LoggedOutRoutes/>}</Switch></Router>
 
-Router.propTypes = {
+AppRouter.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired
 };
 
