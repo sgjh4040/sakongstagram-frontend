@@ -53,34 +53,43 @@ export default ({
   lastName,
   email,
   setAction,
-  onLogin
+  onSubmit,
+  secret
 }) => (
   <Wrapper>
     <Form>
-      {action === "logIn" ? (
-        <form onSubmit={onLogin}>
+      {action === "logIn" && (
+        <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
           <Button text={"Log in"} />
         </form>
-      ) : (
-        <form onSubmit={onLogin}>
-          <Input placeholder={"First name"} {...firstName} />
-          <Input placeholder={"Last name"} {...lastName} />
-          <Input placeholder={"Email"} {...email} type="email" />
-          <Input placeholder={"Username"} {...username} />
-          <Button text={"Sign up"} />
+        
+      )}
+      {action === "signUp" && (
+        <form onSubmit={onSubmit}>
+        <Input placeholder={"First name"} {...firstName} />
+        <Input placeholder={"Last name"} {...lastName} />
+        <Input placeholder={"Email"} {...email} type="email" />
+        <Input placeholder={"Username"} {...username} />
+        <Button text={"Sign up"} />
+      </form>
+      )}
+      {action === "confirm" && (
+        <form onSubmit={onSubmit}>
+          <Input placeholder="Paste your secret" required {...secret} />
+          <Button text={"Confirm"} />
         </form>
       )}
     </Form>
     <StateChanger>
       {action === "logIn" ? (
         <>
-          Don't have an account?{" "}
+          계정이 없으신가요?{" "}
           <Link onClick={() => setAction("signUp")}>Sign up</Link>
         </>
       ) : (
         <>
-          Have an account?{" "}
+          계정이 이미 있으신가요?{" "}
           <Link onClick={() => setAction("logIn")}>Log in</Link>
         </>
       )}
