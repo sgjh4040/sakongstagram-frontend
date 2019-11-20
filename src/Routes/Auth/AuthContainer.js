@@ -107,7 +107,7 @@ export default () => {
   };
 
   return (
-    <AuthPresenter senter
+    <AuthPresenter 
       setAction={setAction}
       action={action}
       username={username}

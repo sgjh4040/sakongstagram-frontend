@@ -56,37 +56,36 @@ export default ({
   onSubmit,
   secret
 }) => (
-    <Wrapper>
-      <Form>
-        {action === "logIn" && (
-          <form onSubmit={onSubmit}>
-            <Input placeholder={"Email"} {...email} type="email" />
-            <Button text={"Log in"} />
-          </form>
-
-        )}
-        {action === "signUp" && (
-          <form onSubmit={onSubmit}>
-            <Input placeholder={"First name"} {...firstName} />
-            <Input placeholder={"Last name"} {...lastName} />
-            <Input placeholder={"Email"} {...email} type="email" />
-            <Input placeholder={"Username"} {...username} />
-            <Button text={"Sign up"} />
-          </form>
-        )}
-        {action === "confirm" && (
-          <form onSubmit={onSubmit}>
-            <Input placeholder="Paste your secret" required {...secret} />
-            <Button text={"Confirm"} />
-            </form>
-            )}
+  <Wrapper>
+    <Form>
+      {action === "logIn" && (
+        <form onSubmit={onSubmit}>
+          <Input placeholder={"Email"} {...email} type="email" />
+          <Button text={"Log in"} />
+        </form>
+        
+      )}
+      {action === "signUp" && (
+        <form onSubmit={onSubmit}>
+        <Input placeholder={"First name"} {...firstName} />
+        <Input placeholder={"Last name"} {...lastName} />
+        <Input placeholder={"Email"} {...email} type="email" />
+        <Input placeholder={"Username"} {...username} />
+        <Button text={"Sign up"} />
+      </form>
+      )}
+      {action === "confirm" && (
+        <form onSubmit={onSubmit}>
+          <Input placeholder="Paste your secret" required {...secret} />
+          <Button text={"Confirm"} />
+        </form>
+      )}
     </Form>
-    {action !== "confirm" && (
     <StateChanger>
-          {action === "logIn" ? (
+      {action === "logIn" ? (
         <>
-            계정이 없으신가요?{" "}
-            <Link onClick={() => setAction("signUp")}>Sign up</Link>
+          계정이 없으신가요?{" "}
+          <Link onClick={() => setAction("signUp")}>Sign up</Link>
         </>
       ) : (
         <>
@@ -94,7 +93,6 @@ export default ({
           <Link onClick={() => setAction("logIn")}>Log in</Link>
         </>
       )}
-      </StateChanger>
-      )}
+    </StateChanger>
   </Wrapper>
 );
