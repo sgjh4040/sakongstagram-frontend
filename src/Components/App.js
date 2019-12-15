@@ -28,6 +28,7 @@ export default () => {
   return (
     <ThemeProvider theme={Theme}>
       <>
+      <meta charset="UTF-8"/>
         <GlobalStyles />
         <Router>
           <>

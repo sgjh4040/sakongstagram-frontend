@@ -23,8 +23,9 @@ const Container = styled.div`
   background-size:cover;
   border-radius:50%;
 `;
-
-const Avatar = ({ size = "sm", url }) => <Container size={size} url={url} />;
+const Avatar = ({ size = "sm", url, className }) => (
+  <Container className={className} size={size} url={url} />
+);
 
 Avatar.propTypes = {
   size: PropTypes.oneOf(["sm", "md", "lg"]),
