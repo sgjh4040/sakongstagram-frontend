@@ -5,8 +5,8 @@ import { useQuery } from "react-apollo-hooks";
 import ProfilePresenter from "./ProfilePresenter";
 
 const GET_USER = gql`
-  query seeUser($username: String!) {
-    seeUser(username: $username) {
+  query seeUser($id: String!) {
+    seeUser(id: $id) {
       id
       avatar
       username
@@ -29,7 +29,7 @@ const GET_USER = gql`
   }
 `;
 
-export default withRouter(({ match: { params: { username } } }) => {
-    const { data, loading } = useQuery(GET_USER, { variables: { username } });
+export default withRouter(({ match: { params: { id } } }) => {
+    const { data, loading } = useQuery(GET_USER, { variables: { id } });
     return <ProfilePresenter loading={loading} data={data} />;
 });

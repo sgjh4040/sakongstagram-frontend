@@ -5,6 +5,7 @@ import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 import TextareaAutosize from "react-autosize-textarea";
+import {getFormattedRegDate} from "../../Util"
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -107,7 +108,7 @@ const Caption = styled.div`
 
 
 export default ({
-  user: { username, avatar },
+  user: { username, avatar,id },
   location,
   files,
   isLiked,
@@ -125,7 +126,7 @@ export default ({
       <Header>
         <Avatar size="sm" url={avatar} />
         <UserColumn>
-          <Link to={`/${username}`}>
+          <Link to={`/${id}`}>
             <FatText text={username} />
           </Link>
           <Location>{location}</Location>
@@ -163,7 +164,7 @@ export default ({
             ))}
           </Comments>
         )}
-        <Timestamp>{createdAt}</Timestamp>
+        <Timestamp>{getFormattedRegDate(createdAt)}</Timestamp>
         <Textarea
           placeholder={"댓글을 달아주세요..."}
           value={newComment.value}

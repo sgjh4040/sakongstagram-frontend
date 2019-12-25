@@ -41,7 +41,7 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
     } else if (!loading && data && data.searchUser && data.searchPost) {
         return (
             <Wrapper>
-                <PostSection>
+                <Section>
                     {data.searchUser.length === 0 ? (
                         <FatText text="유저를 찾을수 없습니다." />
                     ) : (
@@ -56,8 +56,8 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
                                 />
                             ))
                         )}
-                </PostSection>
-                <Section>
+                </Section>
+                <PostSection>
                     {data.searchPost.length === 0 ? (
                         <FatText text="포스터를 찾을수 없습니다." />
                     ) : (
@@ -70,7 +70,7 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
                                 />
                             ))
                         )}
-                </Section>
+                </PostSection>
             </Wrapper>
         );
     }

@@ -25,9 +25,11 @@ const HeaderColumn = styled.div``;
 const UsernameRow = styled.div`
   display: flex;
   align-items: center;
+  min-width: 400px;
 `;
 
 const Username = styled.span`
+  width:100%;
   font-size: 26px;
   display: block;
 `;
@@ -35,6 +37,7 @@ const Username = styled.span`
 const Counts = styled.ul`
   display: flex;
   margin: 15px 0px;
+  justify-content: space-around;
 `;
 
 const Count = styled.li`
@@ -85,7 +88,7 @@ export default ({ loading, data }) => {
         return (
             <Wrapper>
                 <Helmet>
-                    <title>{username} | Prismagram</title>
+                    <title>{username} | sakongstagram</title>
                 </Helmet>
                 <Header>
                     <HeaderColumn>
@@ -98,13 +101,13 @@ export default ({ loading, data }) => {
                         </UsernameRow>
                         <Counts>
                             <Count>
-                                <FatText text={String(postsCount)} /> posts
+                                게시물  <FatText text={String(postsCount)} /> 
               </Count>
                             <Count>
-                                <FatText text={String(followersCount)} /> followers
+                                팔로워  <FatText text={String(followersCount)} /> 
               </Count>
                             <Count>
-                                <FatText text={String(followingCount)} /> following
+                                팔로우  <FatText text={String(followingCount)} /> 
               </Count>
                         </Counts>
                         <FullName text={fullName} />

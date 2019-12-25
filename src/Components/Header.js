@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
 import { Compass, HeartEmpty, User, Logo } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
-import {ME} from "../SharedQueries"
+import { ME } from "../SharedQueries"
+import { Manager, Reference, Popper } from 'react-popper';
+
 
 const Header = styled.header`
   width: 100%;
@@ -62,9 +64,22 @@ const HeaderLink = styled(Link)`
     margin-right: 30px;
   }
 `;
+const HeaderIcon = styled.span`
+    margin-right: 30px;
+`;
+
+
+
 export default withRouter(({ history }) => {
   const search = useInput("");
   const { data } = useQuery(ME);
+
+
+  const openNotification = () => {
+    console.log("Noti click");
+
+
+  }
 
   const onSearchSubmit = e => {
     e.preventDefault();
@@ -72,39 +87,55 @@ export default withRouter(({ history }) => {
     history.push(`/search?term=${search.value}`);
   };
   return (
-    <Header>
-      <HeaderWrapper>
-        <HeaderColumn>
-          <Link to="/">
-            <Logo />
-          </Link>
-        </HeaderColumn>
-        <HeaderColumn>
-          <form onSubmit={onSearchSubmit}>
-            <SearchInput
-              value={search.value}
-              onChange={search.onChange}
-              placeholder="Search" />
-          </form>
-        </HeaderColumn>
-        <HeaderColumn>
-          <HeaderLink to="/explore">
-            <Compass />
-          </HeaderLink>
-          <HeaderLink to="/notifications">
-            <HeartEmpty />
-          </HeaderLink>
-          {!(data && data.me) ? (
-            <HeaderLink to="/#">
-              <User />
+    <Manager>
+      <Header>
+        <HeaderWrapper>
+          <HeaderColumn>
+            <Link to="/">
+              <Logo />
+            </Link>
+          </HeaderColumn>
+          <HeaderColumn>
+            <form onSubmit={onSearchSubmit}>
+              <SearchInput
+                value={search.value}
+                onChange={search.onChange}
+                placeholder="Search" />
+            </form>
+          </HeaderColumn>
+          <HeaderColumn>
+            <HeaderLink to="/explore">
+              <Compass />
             </HeaderLink>
-          ) : (
-              <HeaderLink to={data.me.username}>
+            <Reference>
+              {({ ref }) => (
+                <HeaderIcon ref={ref}>
+                  <HeartEmpty />
+                </HeaderIcon>
+              )}
+            </Reference>
+            <Popper placement="bottom" >
+              {({ ref, style, placement, arrowProps }) => (
+                <div ref={ref} style={style} data-placement={placement}>
+                  Popper element
+            <div className="arrow" ref={arrowProps.ref} style={arrowProps.style} />
+                </div>
+              )}
+            </Popper>
+
+
+            {!(data && data.me) ? (
+              <HeaderLink to="/#">
                 <User />
               </HeaderLink>
-            )}
-        </HeaderColumn>
-      </HeaderWrapper>
-    </Header>
+            ) : (
+                <HeaderLink to={data.me.id}>
+                  <User />
+                </HeaderLink>
+              )}
+          </HeaderColumn>
+        </HeaderWrapper>
+      </Header>
+    </Manager>
   );
 });
