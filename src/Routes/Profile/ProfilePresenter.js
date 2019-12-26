@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader";
@@ -6,6 +6,7 @@ import Avatar from "../../Components/Avatar";
 import FatText from "../../Components/FatText";
 import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
+import ModalPost from "../../Components/ModalPost"
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -63,70 +64,92 @@ const Posts = styled.div`
 `;
 
 export default ({ loading, data }) => {
-    if (loading === true) {
-        return (
-            <Wrapper>
-                <Loader />
-            </Wrapper>
-        );
-    } else if (!loading && data && data.seeUser) {
-        const {
-            seeUser: {
-                id,
-                avatar,
-                username,
-                fullName,
-                isFollowing,
-                isSelf,
-                bio,
-                followingCount,
-                followersCount,
-                postsCount,
-                posts
-            }
-        } = data;
-        return (
-            <Wrapper>
-                <Helmet>
-                    <title>{username} | sakongstagram</title>
-                </Helmet>
-                <Header>
-                    <HeaderColumn>
-                        <Avatar size="lg" url={avatar} />
-                    </HeaderColumn>
-                    <HeaderColumn>
-                        <UsernameRow>
-                            <Username>{username}</Username>{" "}
-                            {!isSelf && <FollowButton isFollowing={isFollowing} id={id} />}
-                        </UsernameRow>
-                        <Counts>
-                            <Count>
-                                게시물  <FatText text={String(postsCount)} /> 
+  const [isModal, setIsModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState('');
+  
+
+  const openModal = (id) => {
+    console.log("postId",id)
+    setSelectedPost(id);
+    setIsModal(true);
+  }
+  const closeModal = () => {
+    setIsModal(false);
+  }
+
+  if (loading === true) {
+    return (
+      <Wrapper>
+        <Loader />
+      </Wrapper>
+    );
+  } else if (!loading && data && data.seeUser) {
+    const {
+      seeUser: {
+        id,
+        avatar,
+        username,
+        fullName,
+        isFollowing,
+        isSelf,
+        bio,
+        followingCount,
+        followersCount,
+        postsCount,
+        posts
+      }
+    } = data;
+    return (
+      <Wrapper>
+        <Helmet>
+          <title>{username} | sakongstagram</title>
+        </Helmet>
+        <Header>
+          <HeaderColumn>
+            <Avatar size="lg" url={avatar} />
+          </HeaderColumn>
+          <HeaderColumn>
+            <UsernameRow>
+              <Username>{username}</Username>{" "}
+              {!isSelf && <FollowButton isFollowing={isFollowing} id={id} />}
+            </UsernameRow>
+            <Counts>
+              <Count>
+                게시물  <FatText text={String(postsCount)} />
               </Count>
-                            <Count>
-                                팔로워  <FatText text={String(followersCount)} /> 
+              <Count>
+                팔로워  <FatText text={String(followersCount)} />
               </Count>
-                            <Count>
-                                팔로우  <FatText text={String(followingCount)} /> 
+              <Count>
+                팔로우  <FatText text={String(followingCount)} />
               </Count>
-                        </Counts>
-                        <FullName text={fullName} />
-                        <Bio>{bio}</Bio>
-                    </HeaderColumn>
-                </Header>
-                <Posts>
-                    {posts &&
-                        posts.map(post => (
-                            <SquarePost
-                                key={post.id}
-                                likeCount={post.likeCount}
-                                commentCount={post.commentCount}
-                                file={post.files[0]}
-                            />
-                        ))}
-                </Posts>
-            </Wrapper>
-        );
-    }
-    return null;
+            </Counts>
+            <FullName text={fullName} />
+            <Bio>{bio}</Bio>
+          </HeaderColumn>
+        </Header>
+        <Posts >
+          {posts &&
+            posts.map(post => (
+              <SquarePost
+                openModal={openModal}
+                closeModal={closeModal}
+                key={post.id}
+                postId={post.id}
+                likeCount={post.likeCount}
+                commentCount={post.commentCount}
+                file={post.files[0]}
+              />
+            ))}
+            {isModal
+          ? (<ModalPost id={selectedPost} closeModal={closeModal}/>)
+          : (<></>)
+        }
+        </Posts>
+        
+
+      </Wrapper>
+    );
+  }
+  return null;
 };

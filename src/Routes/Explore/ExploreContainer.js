@@ -28,7 +28,6 @@ const RANDOM_QUERY = gql`
 
 export default ()=> {
     const {loading,data} = useQuery(RANDOM_QUERY,{variables: {size:"10"}});
-    console.log("test");
     console.log(data);
     return <ExplorePresenter loading={loading} data={data}/>
 }

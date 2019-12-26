@@ -42,8 +42,10 @@ const NumberText = styled.span`
   font-size: 16px;
 `;
 
-const SquarePost = ({ likeCount, commentCount, file }) => (
-  <Container bg={file.url}>
+
+
+const SquarePost = ({ likeCount, commentCount, file,openModal,postId }) => (
+  <Container name={postId} bg={file.url} onClick={()=>openModal(postId)}>
     <Overlay>
       <Number>
         <HeartFull />

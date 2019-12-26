@@ -6,7 +6,7 @@ import useInput from "../Hooks/useInput";
 import { Compass, HeartEmpty, User, Logo } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
 import { ME } from "../SharedQueries"
-import { Manager, Reference, Popper } from 'react-popper';
+import Avatar from "./Avatar";
 
 
 const Header = styled.header`
@@ -66,9 +66,24 @@ const HeaderLink = styled(Link)`
 `;
 const HeaderIcon = styled.span`
     margin-right: 30px;
+    position:relative;
 `;
 
-
+const NotificationContainer = styled.div`
+    right:0;
+    top:15px;
+    position:absolute;
+    height:400px;
+    width:400px;
+    border:1px solid black;
+    text-align: left;
+    word-wrap: break-word;
+`;
+const NotificationBox = styled.div`
+    padding: 15px;
+    border: 1px solid red;
+    display: flex;
+`;
 
 export default withRouter(({ history }) => {
   const search = useInput("");
@@ -87,55 +102,48 @@ export default withRouter(({ history }) => {
     history.push(`/search?term=${search.value}`);
   };
   return (
-    <Manager>
-      <Header>
-        <HeaderWrapper>
-          <HeaderColumn>
-            <Link to="/">
-              <Logo />
-            </Link>
-          </HeaderColumn>
-          <HeaderColumn>
-            <form onSubmit={onSearchSubmit}>
-              <SearchInput
-                value={search.value}
-                onChange={search.onChange}
-                placeholder="Search" />
-            </form>
-          </HeaderColumn>
-          <HeaderColumn>
-            <HeaderLink to="/explore">
-              <Compass />
+    <Header>
+      <HeaderWrapper>
+        <HeaderColumn>
+          <Link to="/">
+            <Logo />
+          </Link>
+        </HeaderColumn>
+        <HeaderColumn>
+          <form onSubmit={onSearchSubmit}>
+            <SearchInput
+              value={search.value}
+              onChange={search.onChange}
+              placeholder="Search" />
+          </form>
+        </HeaderColumn>
+        <HeaderColumn>
+          <HeaderLink to="/explore">
+            <Compass />
+          </HeaderLink>
+          <HeaderIcon >
+            <HeartEmpty />
+            <NotificationContainer>
+              <NotificationBox>
+                <Avatar size="sm" url="https://sakongstagram.s3.ap-northeast-2.amazonaws.com/1577106807704"/>
+              </NotificationBox>
+
+            </NotificationContainer>
+          </HeaderIcon>
+
+
+          {!(data && data.me) ? (
+            <HeaderLink to="/#">
+              <User />
             </HeaderLink>
-            <Reference>
-              {({ ref }) => (
-                <HeaderIcon ref={ref}>
-                  <HeartEmpty />
-                </HeaderIcon>
-              )}
-            </Reference>
-            <Popper placement="bottom" >
-              {({ ref, style, placement, arrowProps }) => (
-                <div ref={ref} style={style} data-placement={placement}>
-                  Popper element
-            <div className="arrow" ref={arrowProps.ref} style={arrowProps.style} />
-                </div>
-              )}
-            </Popper>
-
-
-            {!(data && data.me) ? (
-              <HeaderLink to="/#">
+          ) : (
+              <HeaderLink to={data.me.id}>
                 <User />
               </HeaderLink>
-            ) : (
-                <HeaderLink to={data.me.id}>
-                  <User />
-                </HeaderLink>
-              )}
-          </HeaderColumn>
-        </HeaderWrapper>
-      </Header>
-    </Manager>
+            )}
+        </HeaderColumn>
+      </HeaderWrapper>
+    </Header>
+
   );
 });
