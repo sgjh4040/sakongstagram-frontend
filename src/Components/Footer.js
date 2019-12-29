@@ -10,13 +10,17 @@ const Footer = styled.footer`
   font-size: 12px;
 `;
 
-const List = styled.ul`
+const List = styled.div`
   display: flex;
 `;
 
-const ListItem = styled.li`
+const ListItem = styled.div`
+  flex: 0 0 16.66%;
   &:not(:last-child) {
     margin-right: 16px;
+  }
+  @media (min-width: 768px){
+    flex: 0 0 auto;
   }
 `;
 

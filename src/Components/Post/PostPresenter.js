@@ -10,11 +10,14 @@ import {getFormattedRegDate} from "../../Util"
 const Post = styled.div`
   ${props => props.theme.whiteBox};
   width: 100%;
-  max-width: 600px;
+  /* max-width: 600px; */
   margin-bottom: 25px;
   user-select: none;
   a {
     color: inherit;
+  }
+  @media (min-width: 768px){
+    max-width: 600px;
   }
 `;
 

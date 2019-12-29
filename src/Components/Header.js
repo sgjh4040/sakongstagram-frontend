@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 import Input from "./Input";
@@ -7,6 +7,11 @@ import { Compass, HeartEmpty, User, Logo } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
 import { ME } from "../SharedQueries"
 import Avatar from "./Avatar";
+import { NOTI_QUERY } from "./Query";
+import * as Scroll from 'react-scroll';
+import { Element, animateScroll as scroll,} from 'react-scroll';
+
+
 
 
 const Header = styled.header`
@@ -73,27 +78,40 @@ const NotificationContainer = styled.div`
     right:0;
     top:15px;
     position:absolute;
-    height:400px;
     width:400px;
-    border:1px solid black;
+    border:1px solid #E6E6E6;
     text-align: left;
     word-wrap: break-word;
+    background-color:#FFFFFF;
 `;
 const NotificationBox = styled.div`
     padding: 15px;
-    border: 1px solid red;
+    border-bottom: 1px solid #EFEFEF;
+    align-items: center;
     display: flex;
+`;
+const Message = styled.div`
+    margin-left:10px;
+    font-size: 15px;
+    flex: 8;
+    margin-left:10px;
 `;
 
 export default withRouter(({ history }) => {
   const search = useInput("");
+  const [isNotification, setIsNotification] = useState(false);
   const { data } = useQuery(ME);
+  const { data: notiData } = useQuery(NOTI_QUERY);
+  console.log(notiData);
 
 
-  const openNotification = () => {
+  const toggleNotification = () => {
     console.log("Noti click");
-
-
+    if (isNotification) {
+      setIsNotification(false);
+    } else {
+      setIsNotification(true);
+    }
   }
 
   const onSearchSubmit = e => {
@@ -121,14 +139,25 @@ export default withRouter(({ history }) => {
           <HeaderLink to="/explore">
             <Compass />
           </HeaderLink>
-          <HeaderIcon >
+          <HeaderIcon onClick={toggleNotification} >
             <HeartEmpty />
-            <NotificationContainer>
-              <NotificationBox>
-                <Avatar size="sm" url="https://sakongstagram.s3.ap-northeast-2.amazonaws.com/1577106807704"/>
-              </NotificationBox>
+            {isNotification && (
+              
+                <NotificationContainer>
+                  <Element style={{ overflow: 'scroll', height: "480px" }}>
+                  {notiData && notiData.seeNotification.map(notification => (
+                    <NotificationBox key={notification.id}>
+                      <Avatar size="sm" url={notification.from.avatar} />
+                      <Message>
+                        {notification.message}
+                      </Message>
+                    </NotificationBox>
+                  ))}
+                  </Element>
+                </NotificationContainer>
+            
+            )}
 
-            </NotificationContainer>
           </HeaderIcon>
 
 

@@ -62,11 +62,11 @@ export default ({
       {action === "logIn" && (
         <>
         <Helmet>
-          <title>Log In | Prismagram</title>
+          <title>로그인 | SakongStagram</title>
         </Helmet>
         <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
-          <Button text={"Log in"} />
+          <Button text={"로그인"} />
         </form>
       </>
         
@@ -74,21 +74,21 @@ export default ({
       {action === "signUp" && (
         <>
         <Helmet>
-          <title>Sign Up | Prismagram</title>
+          <title>회원가입 | SakongStagram</title>
         </Helmet>
         <form onSubmit={onSubmit}>
           <Input placeholder={"First name"} {...firstName} />
           <Input placeholder={"Last name"} {...lastName} />
           <Input placeholder={"Email"} {...email} type="email" />
           <Input placeholder={"Username"} {...username} />
-          <Button text={"Sign up"} />
+          <Button text={"회원가입"} />
         </form>
       </>
       )}
       {action === "confirm" && (
         <>
         <Helmet>
-          <title>Confirm Secret | Prismagram</title>
+          <title>비밀키 확인 | SakongStagram</title>
         </Helmet>
         <form onSubmit={onSubmit}>
           <Input placeholder="Paste your secret" required {...secret} />

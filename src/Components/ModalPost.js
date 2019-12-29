@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 import FatText from "./FatText";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { SEE_FULL_POST } from "./Post/PostQueries"
-import * as Scroll from 'react-scroll';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+import { Element} from 'react-scroll';
 import { useQuery } from "react-apollo-hooks";
 import {Close} from "./Icons"
 

@@ -7,7 +7,13 @@ export default new ApolloCient({
         defaults,
         resolvers
     },
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+    request: async (operation)=>{
+        const token = await localStorage.getItem("token");
+        operation.setContext({
+            headers:{
+                authorization: token ? `Bearer ${token}` : ''
+            }
+        })
+
     }
 });

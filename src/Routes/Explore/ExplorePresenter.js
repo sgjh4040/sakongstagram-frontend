@@ -42,7 +42,7 @@ const ExplorePresenter = ({ data, loading }) => {
     return (
         <Wrapper>
             <Section>
-                {data.randomUsers.map((user, index) => (
+                {data&&data.randomUsers.map((user, index) => (
                     <UserCard
                         key={index}
                         username={user.username}

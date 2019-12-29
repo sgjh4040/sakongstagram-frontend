@@ -7,6 +7,7 @@ import FatText from "../../Components/FatText";
 import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
 import ModalPost from "../../Components/ModalPost"
+import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -63,7 +64,8 @@ const Posts = styled.div`
   grid-auto-rows: 200px;
 `;
 
-export default ({ loading, data }) => {
+export default ({ loading, data, logOut }) => {
+  window.scroll(0, 0);
   const [isModal, setIsModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState('');
   
@@ -111,7 +113,11 @@ export default ({ loading, data }) => {
           <HeaderColumn>
             <UsernameRow>
               <Username>{username}</Username>{" "}
-              {!isSelf && <FollowButton isFollowing={isFollowing} id={id} />}
+              {isSelf ? (
+                <Button onClick={logOut} text="Log Out" />
+              ) : (
+                <FollowButton isFollowing={isFollowing} id={id} />
+              )}
             </UsernameRow>
             <Counts>
               <Count>

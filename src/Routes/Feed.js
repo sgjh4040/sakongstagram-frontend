@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -43,8 +43,12 @@ const Wrapper = styled.div`
 `;
 
 export default () => {
-  const { data, loading } = useQuery(FEED_QUERY);
-  console.log(data,loading);
+  console.log(localStorage.getItem("token"));
+  const { data, loading,refetch } = useQuery(FEED_QUERY);
+
+  useEffect(()=>{
+    refetch();
+  },[data])
   return (
     <Wrapper>
       <Helmet>

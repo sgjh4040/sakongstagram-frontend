@@ -99,7 +99,7 @@ export default () => {
             throw Error();
           }
         } catch {
-          toast.error("Cant confirm secret,check again");
+          toast.error("확인할수 없습니다. 다시 확인하세요");
         }
       }
     }
