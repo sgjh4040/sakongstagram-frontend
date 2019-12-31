@@ -6,7 +6,7 @@ import Loader from "../Components/Loader";
 import Post from "../Components/Post";
 import Helmet from "react-helmet";
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     seeFeed {
       id

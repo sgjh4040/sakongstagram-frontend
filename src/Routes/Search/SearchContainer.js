@@ -6,7 +6,7 @@ import { SEARCH } from "./SearchQueries";
 
 export default withRouter(({ location: { search } }) => {
   console.log(search);
-  const term = search.split("=")[1];
+  const term = decodeURI(search.split("=")[1]);
   console.log("term",term);
   const { data, loading,refetch } = useQuery(SEARCH, {
     skip: term === undefined,

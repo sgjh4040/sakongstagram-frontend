@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
-import { Compass, HeartEmpty, User, Logo } from "./Icons";
+import { Compass, HeartEmpty, User, Logo, Plus } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
 import { ME } from "../SharedQueries"
 import Avatar from "./Avatar";
 import { NOTI_QUERY } from "./Query";
 import * as Scroll from 'react-scroll';
-import { Element, animateScroll as scroll,} from 'react-scroll';
+import { Element, animateScroll as scroll, } from 'react-scroll';
 
 
 
@@ -142,9 +142,8 @@ export default withRouter(({ history }) => {
           <HeaderIcon onClick={toggleNotification} >
             <HeartEmpty />
             {isNotification && (
-              
-                <NotificationContainer>
-                  <Element style={{ overflow: 'scroll', height: "480px" }}>
+              <NotificationContainer>
+                <Element style={{ overflow: 'scroll', height: "480px" }}>
                   {notiData && notiData.seeNotification.map(notification => (
                     <NotificationBox key={notification.id}>
                       <Avatar size="sm" url={notification.from.avatar} />
@@ -153,9 +152,9 @@ export default withRouter(({ history }) => {
                       </Message>
                     </NotificationBox>
                   ))}
-                  </Element>
-                </NotificationContainer>
-            
+                </Element>
+              </NotificationContainer>
+
             )}
 
           </HeaderIcon>
@@ -166,9 +165,14 @@ export default withRouter(({ history }) => {
               <User />
             </HeaderLink>
           ) : (
+            <>
+              <HeaderLink to="upload">
+                <Plus />
+              </HeaderLink>
               <HeaderLink to={data.me.id}>
                 <User />
               </HeaderLink>
+              </>
             )}
         </HeaderColumn>
       </HeaderWrapper>

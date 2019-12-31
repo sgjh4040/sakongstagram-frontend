@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "react-apollo-hooks";
 import ProfilePresenter from "./ProfilePresenter";
 
 
+
 const GET_USER = gql`
   query seeUser($id: String!) {
     seeUser(id: $id) {

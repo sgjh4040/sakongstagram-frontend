@@ -10,6 +10,7 @@ const Container = styled.input`
   height: 35px;
   font-size: 12px;
   padding: 0px 15px;
+  width: ${props => props.width}
 `;
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
     value,
     onChange,
     type = "text",
+    width,
     className
 }) => (
         <Container
@@ -27,6 +29,7 @@ const Input = ({
             value={value}
             onChange={onChange}
             type={type}
+            width={width}
         />
     );
 
