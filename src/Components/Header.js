@@ -4,10 +4,10 @@ import { Link, withRouter } from "react-router-dom";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
 import { Compass, HeartEmpty, User, Logo, Plus } from "./Icons";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery, useMutation } from "react-apollo-hooks";
 import { ME } from "../SharedQueries"
 import Avatar from "./Avatar";
-import { NOTI_QUERY } from "./Query";
+import { NOTI_QUERY, DELETE_NOTIFICATION } from "./Query";
 import * as Scroll from 'react-scroll';
 import { Element, animateScroll as scroll, } from 'react-scroll';
 
@@ -83,6 +83,7 @@ const NotificationContainer = styled.div`
     text-align: left;
     word-wrap: break-word;
     background-color:#FFFFFF;
+    cursor: pointer;
 `;
 const NotificationBox = styled.div`
     padding: 15px;
@@ -102,7 +103,24 @@ export default withRouter(({ history }) => {
   const [isNotification, setIsNotification] = useState(false);
   const { data } = useQuery(ME);
   const { data: notiData } = useQuery(NOTI_QUERY);
+  const [deleteNotification] = useMutation(DELETE_NOTIFICATION,{
+    refetchQueries: () => [{
+      query:NOTI_QUERY
+    }]
+  });
   
+  const handleNotification = async (notification) => {
+    console.log("click")
+    console.log(notification);
+    history.push(`/post/${notification.post.id}`)
+    try {
+      await deleteNotification({variables:{id:notification.id}});
+      
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
 
   const toggleNotification = () => {
@@ -162,7 +180,7 @@ export default withRouter(({ history }) => {
               <NotificationContainer>
                 <Element style={{ overflow: 'scroll', height: "480px" }}>
                   {notiData && notiData.seeNotification.map(notification => (
-                    <NotificationBox key={notification.id}>
+                    <NotificationBox onClick={()=>handleNotification(notification)} key={notification.id}>
                       <Avatar size="sm" url={notification.from.avatar} />
                       <Message>
                         {notification.message}
@@ -173,8 +191,8 @@ export default withRouter(({ history }) => {
               </NotificationContainer>
 
             )}
-
           </HeaderIcon>
+          
 
 
           {!(data && data.me) ? (
@@ -183,7 +201,7 @@ export default withRouter(({ history }) => {
             </HeaderLink>
           ) : (
             <>
-              <HeaderLink to="upload">
+              <HeaderLink to="/upload">
                 <Plus />
               </HeaderLink>
               <HeaderLink to={data.me.id}>

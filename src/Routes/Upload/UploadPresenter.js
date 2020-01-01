@@ -29,6 +29,8 @@ const ButtonWrapper = styled.div`
 `;
 const UploadImage = styled.div`
         background-image: url(${props => props.url});
+        background-size: cover;
+        resize: both;
 `;
 
 
@@ -57,21 +59,19 @@ const UploadPresenter = ({
                         </UploadImage>)}
                     </Slider> ):<></>
                 }
-                  
 
                 </UploadImage>
                 <InputWrapper>
-                    <Input width="100%" placeholder={"문구입력"} {...captionInput}></Input>
+                    <Input width="100%" required={false} placeholder={"문구입력"} {...captionInput}></Input>
                 </InputWrapper>
                 <InputWrapper>
-                    <Input width="100%" placeholder={"장소"} {...locationInput}></Input>
+                    <Input width="100%" required={false} placeholder={"장소"} {...locationInput}></Input>
                 </InputWrapper>
 
                 <input accept="image/*" onChange={onImageChange} placeholder={"업로드 파일"} type="file" multiple ></input>
                 <ButtonWrapper>
                     <Button text={"게시물 등록"} />
                 </ButtonWrapper>
-                {/* <UploadImage id="target" src={selectedImage.imagePreview} alt={"adfasf"} /> */}
             </UploadForm>
 
 

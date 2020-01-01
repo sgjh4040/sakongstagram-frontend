@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -77,8 +77,7 @@ const override = css`
 display: block;
 margin: 0 auto;
 `;
-export default ({props}) => {
-  console.log("prop",props);
+export default () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const items = 2;

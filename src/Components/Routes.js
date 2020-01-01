@@ -6,7 +6,7 @@ import Feed from "../Routes/Feed";
 import Explore from "../Routes/Explore";
 import Search from "../Routes/Search";
 import Profile from "../Routes/Profile";
-import ModalPost from "./ModalPost";
+import Post from "../Routes/Post";
 import Upload from "../Routes/Upload"
 
 
@@ -17,6 +17,7 @@ const LoggedInRoutes = () =>
             <Route path="/explore" component={Explore} />
             <Route path="/search" component={Search} />
             <Route path="/upload" component={Upload} />
+            <Route path="/post/:id" component={Post} />
             <Route path="/:id" component={Profile} />
             <Redirect from="*" to="/" />
         </Switch>

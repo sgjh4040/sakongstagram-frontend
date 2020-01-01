@@ -53,6 +53,10 @@ export default withRouter(({ history }) => {
 
         if (captionInput.value === "" || locationInput.value === "") {
             toast.error("모두 작성해 주세요");
+            return;
+        }else if (selectedImage===undefined||selectedImage.length===0){
+            toast.error("파일 업로드 해주세요");
+
         }
         console.log(captionInput.value);
         console.log(locationInput.value);
@@ -82,11 +86,11 @@ export default withRouter(({ history }) => {
                 }
             });
             if (upload.id) {
-                history.push(`/`,{frompage:"1"});
+                toast.success("업로드 되었습니다.")
+                history.push(`/`);
             }
         } catch (e) {
-            console.log(e);
-            // toast.error(e);
+            toast.error(e);
         } finally {
             setIsLoading(false);
         }

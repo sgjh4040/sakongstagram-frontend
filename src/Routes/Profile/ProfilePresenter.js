@@ -59,6 +59,7 @@ const Bio = styled.p`
 
 const Posts = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: 200px;
   grid-auto-rows: 200px;
