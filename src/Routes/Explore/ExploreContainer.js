@@ -27,7 +27,10 @@ const RANDOM_QUERY = gql`
 
 
 export default ()=> {
-    const {loading,data} = useQuery(RANDOM_QUERY,{variables: {size:"10"}});
-    console.log(data);
+    const {loading,data,refetch} = useQuery(RANDOM_QUERY,{variables: {size:"10"}});
+
+    useEffect(()=>{
+        refetch();
+    },[data])
     return <ExplorePresenter loading={loading} data={data}/>
 }

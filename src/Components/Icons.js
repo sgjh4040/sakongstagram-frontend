@@ -13,6 +13,7 @@ export const Compass = () => (
 
 export const HeartEmpty = () => (
   <svg
+    id="noti"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"

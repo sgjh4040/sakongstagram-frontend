@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 import { UPLOAD } from "./UploadQueries"
 import { useMutation } from "react-apollo-hooks";
-import { FEED_QUERY } from "../Feed"
+import { FEED_QUERYS } from "../Feed"
 import Loader from "../../Components/Loader";
 
 export default withRouter(({ history }) => {
@@ -16,7 +16,13 @@ export default withRouter(({ history }) => {
     const [selectedImage, setSelectedImage] = useState();
     const [images, setImages] = useState([]);
     const [uploadMutation] = useMutation(UPLOAD, {
-        refetchQueries: () => [{ query: FEED_QUERY }]
+        refetchQueries: () => [{ 
+            query: FEED_QUERYS,
+            variables: { 
+                pageNumber:0,
+                items:2
+             }
+        }]
     });
     const [loading, setIsLoading] = useState(false);
 
@@ -76,7 +82,7 @@ export default withRouter(({ history }) => {
                 }
             });
             if (upload.id) {
-                history.push(`/`);
+                history.push(`/`,{frompage:"1"});
             }
         } catch (e) {
             console.log(e);

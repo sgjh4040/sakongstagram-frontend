@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 import Input from "./Input";
@@ -102,7 +102,7 @@ export default withRouter(({ history }) => {
   const [isNotification, setIsNotification] = useState(false);
   const { data } = useQuery(ME);
   const { data: notiData } = useQuery(NOTI_QUERY);
-  console.log(notiData);
+  
 
 
   const toggleNotification = () => {
@@ -113,12 +113,29 @@ export default withRouter(({ history }) => {
       setIsNotification(true);
     }
   }
+  const hideNoticication = () =>{
+    setIsNotification(false);
+  }
 
   const onSearchSubmit = e => {
     e.preventDefault();
     console.log('search.value', search.value);
     history.push(`/search?term=${search.value}`);
   };
+  useEffect(()=>{
+    window.addEventListener("click",e=>{
+      console.log(e.target.id);
+      if(e.target.id != 'noti'){
+        hideNoticication();
+        
+      }
+    });
+    return window.removeEventListener("click",e=>{
+      if(e.target.id != 'noti'){
+        hideNoticication();
+      }
+    })
+  },[])
   return (
     <Header>
       <HeaderWrapper>
@@ -139,7 +156,7 @@ export default withRouter(({ history }) => {
           <HeaderLink to="/explore">
             <Compass />
           </HeaderLink>
-          <HeaderIcon onClick={toggleNotification} >
+          <HeaderIcon id="icon" onClick={toggleNotification} >
             <HeartEmpty />
             {isNotification && (
               <NotificationContainer>

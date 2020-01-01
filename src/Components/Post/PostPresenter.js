@@ -17,7 +17,8 @@ const Post = styled.div`
     color: inherit;
   }
   @media (min-width: 768px){
-    max-width: 600px;
+    /* max-width: 600px; */
+    width: 100%;
   }
 `;
 
