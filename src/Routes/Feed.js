@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -52,14 +52,17 @@ margin: 0 auto;
 `;
 export default () => {
   const [pageNumber, setPageNumber] = useState(0);
-  const [hasMore, setHasMore] = useState(false);
-  const items = 2;
+  const [hasMore, setHasMore] = useState(true);
+  const items = 4;
   const { data, loading, refetch, fetchMore } = useQuery(FEED_QUERYS, {
     variables: {
       pageNumber: 0,
-      items: 2
+      items
     }
   });
+  useEffect(()=>{
+    refetch();
+  },[])
 
   const onLoadMore = () => {
 
@@ -74,7 +77,9 @@ export default () => {
           setHasMore(false);
           return prev;
         }
-        console.log("ture")
+        if(fetchMoreResult.seeFeeds.length<items){
+          setHasMore(false);
+        }
         return Object.assign({}, prev, {
           seeFeeds: [...prev.seeFeeds, ...fetchMoreResult.seeFeeds]
         });
