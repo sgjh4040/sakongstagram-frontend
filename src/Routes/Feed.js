@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -36,37 +36,10 @@ export const FEED_QUERYS = gql`
       }
       createdAt
     }
+    
+    
   }
 
-`;
-export const FEED_QUERY = gql`
-  {
-    seeFeed {
-      id
-      location
-      caption
-      user {
-        id
-        avatar
-        username
-      }
-      files {
-        id
-        url
-      }
-      likeCount
-      isLiked
-      comments {
-        id
-        text
-        user {
-          id
-          username
-        }
-      }
-      createdAt
-    }
-  }
 `;
 const Wrapper = styled.div`
   display: block;
@@ -79,12 +52,12 @@ margin: 0 auto;
 `;
 export default () => {
   const [pageNumber, setPageNumber] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   const items = 2;
   const { data, loading, refetch, fetchMore } = useQuery(FEED_QUERYS, {
     variables: {
-      pageNumber:0,
-      items:2
+      pageNumber: 0,
+      items: 2
     }
   });
 
@@ -96,7 +69,12 @@ export default () => {
         items
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
+        if (!fetchMoreResult) {
+          console.log("false")
+          setHasMore(false);
+          return prev;
+        }
+        console.log("ture")
         return Object.assign({}, prev, {
           seeFeeds: [...prev.seeFeeds, ...fetchMoreResult.seeFeeds]
         });
@@ -130,11 +108,11 @@ export default () => {
           <InfiniteScroll
             dataLength={data.seeFeeds.length}
             next={onLoadMore}
-            hasMore={true}
+            hasMore={hasMore}
             loader={<ClipLoader
-                      css={override}
-                      size={35}
-                      color={"#999999"}
+              css={override}
+              size={35}
+              color={"#999999"}
             />}
           >
             {data.seeFeeds.map(post => (
