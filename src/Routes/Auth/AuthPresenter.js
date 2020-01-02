@@ -55,7 +55,8 @@ export default ({
   email,
   setAction,
   onSubmit,
-  secret
+  secret,
+  loading
 }) => (
   <Wrapper>
     <Form>
@@ -66,7 +67,7 @@ export default ({
         </Helmet>
         <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
-          <Button text={"로그인"} />
+          <Button loading={loading} text={"로그인"} />
         </form>
       </>
         
@@ -81,7 +82,7 @@ export default ({
           <Input placeholder={"Last name"} {...lastName} />
           <Input placeholder={"Email"} {...email} type="email" />
           <Input placeholder={"Username"} {...username} />
-          <Button text={"회원가입"} />
+          <Button loading={loading} text={"회원가입"} />
         </form>
       </>
       )}
@@ -92,7 +93,7 @@ export default ({
         </Helmet>
         <form onSubmit={onSubmit}>
           <Input placeholder="Paste your secret" required {...secret} />
-          <Button text={"Confirm"} />
+          <Button loading={loading} text={"Confirm"} />
         </form>
       </>
       )}

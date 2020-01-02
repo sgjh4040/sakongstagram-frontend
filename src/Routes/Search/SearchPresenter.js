@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import FatText from "../../Components/FatText";
 import Loader from "../../Components/Loader";
 import UserCard from "../../Components/UserCard";
 import SquarePost from "../../Components/SquarePost";
+import ModalPost from "../../Components/ModalPost";
 
 const Wrapper = styled.div`
   min-height: 50vh;
@@ -26,6 +27,17 @@ const PostSection = styled(Section)`
 `;
 
 const SearchPresenter = ({ searchTerm, loading, data }) => {
+
+    const [isModal, setIsModal] = useState(false);
+    const [selectedPost, setSelectedPost] = useState('');
+    const openModal = (id) => {
+        console.log("postId", id)
+        setSelectedPost(id);
+        setIsModal(true);
+    }
+    const closeModal = () => {
+        setIsModal(false);
+    }
     if (searchTerm === undefined) {
         return (
             <Wrapper>
@@ -67,10 +79,16 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
                                     likeCount={post.likeCount}
                                     commentCount={post.commentCount}
                                     file={post.files[0]}
+                                    postId={post.id}
+                                    openModal={openModal}
                                 />
                             ))
                         )}
                 </PostSection>
+                {isModal
+                ? (<ModalPost id={selectedPost} closeModal={closeModal} />)
+                : (<></>)
+            }
             </Wrapper>
         );
     }

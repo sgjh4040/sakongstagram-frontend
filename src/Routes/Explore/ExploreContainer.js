@@ -30,7 +30,7 @@ export default ()=> {
     const {loading,data,refetch} = useQuery(RANDOM_QUERY,{variables: {size:"10"}});
 
     useEffect(()=>{
-        // refetch();
-    },[data])
+        refetch();
+    },[])
     return <ExplorePresenter loading={loading} data={data}/>
 }

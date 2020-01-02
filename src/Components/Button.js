@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/core";
 
 const Container = styled.button`
   width: 100%;
@@ -14,9 +16,22 @@ const Container = styled.button`
   font-size: 14px;
   cursor: pointer;
 `;
+const Text = styled.span`
+`;
 
-const Button = ({ text, onClick }) => (
-  <Container onClick={onClick}>{text}</Container>
+const override = css`
+display: block;
+margin: 0 auto;
+`;
+
+const Button = ({ text, onClick, loading = false }) => (
+  <Container disabled={loading} onClick={onClick}>
+    {loading ? <ClipLoader
+      css={override}
+      size={20}
+      color={"#FFFFFF"}
+    /> : <Text>{text}</Text>}
+  </Container>
 );
 
 

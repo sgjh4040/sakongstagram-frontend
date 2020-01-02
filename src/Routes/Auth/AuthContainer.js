@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 export default () => {
   const [action, setAction] = useState("logIn");
+  const [loading, setLoading] = useState(false);
   const username = useInput("");
   const firstName = useInput("");
   const lastName = useInput("");
@@ -45,12 +46,13 @@ export default () => {
     if (action === "logIn") {
       if (email !== "") {
         try {
+          setLoading(true);
           const {
             data: { requestSecret }
           } = await requestSecretMutation();
           if (!requestSecret) {
             toast.error("아직 계정이 없습니다. 회원가입하세요");
-            setTimeout(() => setAction("signUp"), 3000);
+            setTimeout(() => setAction("signUp"), 2000);
           } else {
             toast.success("이메일에서 비밀키를 확인하세요");
             setAction("confirm");
@@ -58,6 +60,8 @@ export default () => {
         } catch{
           toast.error("비밀키 요청이 실패하였습니다. 다시 시도하세요");
 
+        }finally{
+          setLoading(false);
         }
       } else {
         toast.error('이메일을 입력하세요');
@@ -71,6 +75,7 @@ export default () => {
         lastName.value !== ""
       ) {
         try {
+          setLoading(true);
           const {
             data: { createAccount }
           } = await createAccountMutation();
@@ -82,6 +87,8 @@ export default () => {
           }
         } catch (e) {
           toast.error(e.message);
+        }finally{
+          setLoading(false);
         }
       } else {
         toast.error("모두 입력하세요")
@@ -116,6 +123,7 @@ export default () => {
       email={email}
       onSubmit={onSubmit}
       secret={secret}
+      loading={loading}
     />
   );
 };

@@ -7,6 +7,8 @@ import { SEE_FULL_POST } from "./Post/PostQueries"
 import { Element} from 'react-scroll';
 import { useQuery } from "react-apollo-hooks";
 import {Close} from "./Icons"
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/core";
 
 
 const ModalContainer = styled.div`
@@ -68,6 +70,11 @@ const CloseIcon = styled.span`
     fill:#FFFFFF;
 
 `;
+const override = css`
+display: block;
+margin:250px auto;
+
+`;
 
 export default ({
     id,
@@ -112,7 +119,15 @@ export default ({
         )
 
     } else {
-        return <></>
+        return (
+            <ModalContainer>
+                <ClipLoader
+              css={override}
+              size={35}
+              color={"#999999"}
+            />
+            </ModalContainer>
+        )
     }
 
 
