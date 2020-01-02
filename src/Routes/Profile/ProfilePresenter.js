@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader";
@@ -8,6 +8,9 @@ import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
 import ModalPost from "../../Components/ModalPost"
 import Button from "../../Components/Button";
+import { Plus } from "../../Components/Icons";
+import { FadeLoader } from "react-spinners";
+import { css } from "@emotion/core";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -22,13 +25,25 @@ const Header = styled.header`
   margin-bottom: 40px;
 `;
 
-const HeaderColumn = styled.div``;
+const HeaderColumn = styled.div`
+ position:relative;
+`;
+
+const IconBox = styled.label`
+  position:absolute;
+    right:0;
+    bottom:0;
+`;
+const HiddenInput = styled.input`
+  display: none;
+`;
 
 const UsernameRow = styled.div`
   display: flex;
   align-items: center;
   min-width: 400px;
 `;
+
 
 const Username = styled.span`
   width:100%;
@@ -64,15 +79,18 @@ const Posts = styled.div`
   grid-template-rows: 200px;
   grid-auto-rows: 200px;
 `;
+const override = css`
+    position: absolute;
+`;
 
-export default ({ loading, data, logOut }) => {
+export default ({ loading, avatarLoading, data, logOut, onImageChange }) => {
   window.scroll(0, 0);
   const [isModal, setIsModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState('');
-  
+
 
   const openModal = (id) => {
-    console.log("postId",id)
+    console.log("postId", id)
     setSelectedPost(id);
     setIsModal(true);
   }
@@ -110,6 +128,17 @@ export default ({ loading, data, logOut }) => {
         <Header>
           <HeaderColumn>
             <Avatar size="lg" url={avatar} />
+            <IconBox for="avatar-input">
+              <Plus />
+            </IconBox>
+            {avatarLoading ? <FadeLoader
+              css={override}
+              size={35}
+              color={"#999999"}
+            />
+              : <></>}
+
+            <HiddenInput onChange={onImageChange} id="avatar-input" type="file" accept="image/*" />
           </HeaderColumn>
           <HeaderColumn>
             <UsernameRow>
@@ -117,8 +146,8 @@ export default ({ loading, data, logOut }) => {
               {isSelf ? (
                 <Button onClick={logOut} text="Log Out" />
               ) : (
-                <FollowButton isFollowing={isFollowing} id={id} />
-              )}
+                  <FollowButton isFollowing={isFollowing} id={id} />
+                )}
             </UsernameRow>
             <Counts>
               <Count>
@@ -148,12 +177,14 @@ export default ({ loading, data, logOut }) => {
                 file={post.files[0]}
               />
             ))}
-            {isModal
-          ? (<ModalPost id={selectedPost} closeModal={closeModal}/>)
-          : (<></>)
-        }
+          {isModal
+            ? (<ModalPost id={selectedPost} closeModal={closeModal} />)
+            : (<></>)
+          }
         </Posts>
-        
+
+
+
 
       </Wrapper>
     );
