@@ -61,6 +61,10 @@ export default withRouter(({ match: { params: { id } } }) => {
   });
   const [logOut] = useMutation(LOG_OUT);
 
+  const url = process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : "https://sakongstagram-backend.herokuapp.com"
+
   const onImageChange = async (event) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -70,7 +74,7 @@ export default withRouter(({ match: { params: { id } } }) => {
         setAvatarLoading(true);
         const {
           data: location
-        } = await axios.post("http://localhost:4000/api/uploads", formData, {
+        } = await axios.post(`${url}/api/uploads`, formData, {
           headers: {
             "content-type": "multipart/form-data",
             "Access-Control-Allow-Origin": "*"

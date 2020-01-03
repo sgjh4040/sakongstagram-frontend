@@ -93,10 +93,8 @@ export default withRouter(({ history }) => {
                 history.push(`/`);
             }
         } catch (e) {
-            toast.success("실패1");
-            toast.success(`${e}`);
+            toast.error("업로드 실패하였습니다.");
         } finally {
-            toast.success("실패2")
             setIsLoading(false);
         }
     }
