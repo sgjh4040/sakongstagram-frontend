@@ -66,6 +66,7 @@ export default withRouter(({ history }) => {
         }
 
         try {
+            toast.success("성공");
             setIsLoading(true);
             const {
                 data: location

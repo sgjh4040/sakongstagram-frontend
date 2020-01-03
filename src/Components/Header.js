@@ -102,7 +102,7 @@ export default withRouter(({ history }) => {
   const search = useInput("");
   const [isNotification, setIsNotification] = useState(false);
   const { data } = useQuery(ME);
-  const { data: notiData } = useQuery(NOTI_QUERY);
+  const { data: notiData, refetch } = useQuery(NOTI_QUERY);
   const [deleteNotification] = useMutation(DELETE_NOTIFICATION,{
     refetchQueries: () => [{
       query:NOTI_QUERY
@@ -141,6 +141,7 @@ export default withRouter(({ history }) => {
     history.push(`/search?term=${search.value}`);
   };
   useEffect(()=>{
+    refetch();
     window.addEventListener("click",e=>{
       console.log(e.target.id);
       if(e.target.id != 'noti'){
