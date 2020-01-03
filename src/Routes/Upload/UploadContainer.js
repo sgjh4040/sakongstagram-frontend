@@ -66,7 +66,6 @@ export default withRouter(({ history }) => {
         }
 
         try {
-            toast.success("성공");
             setIsLoading(true);
             const {
                 data: location
@@ -91,8 +90,10 @@ export default withRouter(({ history }) => {
                 history.push(`/`);
             }
         } catch (e) {
+            toast.success("실패1");
             toast.error(e);
         } finally {
+            toast.success("실패2")
             setIsLoading(false);
         }
     }
