@@ -26,7 +26,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 0px;
+  padding: 25px 10px;
   z-index: 2;
 `;
 
@@ -98,7 +98,7 @@ const NotificationContainer = styled.div`
     right:0;
     top:22px;
     position: absolute;
-    width:230px;
+    width:300px;
     border: 2px solid #E6E6E6;
     text-align: left;
     word-wrap: break-word;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader";
@@ -20,9 +20,13 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+  @media (min-width: 768px){
+    margin-bottom: 40px;
+    width: 80%;
+  }
 `;
 
 const HeaderColumn = styled.div`
@@ -41,7 +45,9 @@ const HiddenInput = styled.input`
 const UsernameRow = styled.div`
   display: flex;
   align-items: center;
-  min-width: 400px;
+  @media (min-width: 768px){
+    min-width: 400px;
+  }
 `;
 
 
@@ -75,9 +81,14 @@ const Bio = styled.p`
 const Posts = styled.div`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(4, 200px);
-  grid-template-rows: 200px;
-  grid-auto-rows: 200px;
+  grid-template-columns: repeat(2, 150px);
+  grid-template-rows: 150px;
+  grid-auto-rows: 150px;
+  @media (min-width: 768px){
+    grid-template-columns: repeat(4, 200px);
+    grid-template-rows: 200px;
+    grid-auto-rows: 200px;
+  }
 `;
 const override = css`
     position: absolute;
@@ -87,7 +98,20 @@ export default ({ loading, avatarLoading, data, logOut, onImageChange }) => {
   window.scroll(0, 0);
   const [isModal, setIsModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState('');
+  const [size,setSize] = useState('ml');
 
+  useEffect(()=>{
+    window.addEventListener("resize",resize);
+  },[])
+
+  const resize = () => {
+    console.log(window.innerWidth);
+      if(window.innerWidth >=768){
+        setSize("lg");
+      }else if(window.innerWidth >= 576){
+        setSize("ml");
+      }
+  }
 
   const openModal = (id) => {
     console.log("postId", id)
@@ -127,7 +151,7 @@ export default ({ loading, avatarLoading, data, logOut, onImageChange }) => {
         </Helmet>
         <Header>
           <HeaderColumn>
-            <Avatar size="lg" url={avatar} />
+            <Avatar size={size} url={avatar} />
             <IconBox for="avatar-input">
               <Plus />
             </IconBox>

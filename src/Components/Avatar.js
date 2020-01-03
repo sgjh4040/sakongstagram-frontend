@@ -8,7 +8,10 @@ const getSize = size => {
     number = 30;
   } else if (size === "md") {
     number = 50;
-  } else if (size === "lg") {
+  }else if(size === "ml"){
+    number = 100;
+  }
+   else if (size === "lg") {
     number = 150;
   }
   return `

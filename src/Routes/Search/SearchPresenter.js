@@ -15,15 +15,24 @@ const Wrapper = styled.div`
 const Section = styled.div`
   margin-bottom: 50px;
   display: grid;
+  justify-content: center;
   grid-gap: 25px;
-  grid-template-columns: repeat(4, 160px);
+  grid-template-columns: repeat(2, 160px);
   grid-template-rows: 160px;
   grid-auto-rows: 160px;
+  @media (min-width: 576px){
+    grid-template-columns: repeat(4, 160px);
+  }
 `;
 const PostSection = styled(Section)`
-  grid-template-columns: repeat(4, 200px);
+  grid-template-columns: repeat(2, 150px);
   grid-template-rows: 200px;
   grid-auto-rows: 200px;
+  @media (min-width: 768px){
+    grid-template-columns: repeat(3, 250px);
+  grid-template-rows: 250px;
+  grid-auto-rows: 250px;
+  }
 `;
 
 const SearchPresenter = ({ searchTerm, loading, data }) => {

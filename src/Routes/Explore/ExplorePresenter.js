@@ -15,14 +15,17 @@ const Section = styled.div`
   display: grid;
   justify-content: center;
   grid-gap: 25px;
-  grid-template-columns: repeat(4, 160px);
+  grid-template-columns: repeat(2, 160px);
   grid-template-rows: 160px;
   grid-auto-rows: 160px;
+  @media (min-width: 576px){
+    grid-template-columns: repeat(4, 160px);
+  }
 `;
 const PostSection = styled(Section)`
-  grid-template-columns: repeat(1, 400px);
-  grid-template-rows: 400px;
-  grid-auto-rows: 400px;
+  grid-template-columns: repeat(2, 150px);
+  grid-template-rows: 150px;
+  grid-auto-rows: 150px;
   @media (min-width: 768px){
     grid-template-columns: repeat(3, 250px);
   grid-template-rows: 250px;
