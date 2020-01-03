@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import Helmet from "react-helmet";
+import logo from "../../assets/icon/logo1.png"
 
 const Wrapper = styled.div`
   min-height: 80vh;
@@ -46,6 +47,13 @@ const Form = styled(Box)`
     }
   }
 `;
+const Logo = styled.div`
+        text-align: center;
+        margin-bottom: 15px;
+        img{
+          width: 250px;
+        }
+`;
 
 export default ({
   action,
@@ -65,6 +73,9 @@ export default ({
         <Helmet>
           <title>로그인 | SakongStagram</title>
         </Helmet>
+        <Logo>
+        <img src={logo}/>
+        </Logo>
         <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
           <Button loading={loading} text={"로그인"} />

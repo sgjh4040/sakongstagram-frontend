@@ -145,6 +145,15 @@ const Message = styled.div`
       font-size: 15px;
   }
 `;
+const NotiMessage = styled.div`
+    font-size : 10px;
+    text-align: center;
+    margin-top: 20px;
+    @media (min-width: 576px){
+      font-size: 15px;
+      margin-top: 40px;
+  }
+`;
 
 export default withRouter(({ history }) => {
   const search = useInput("");
@@ -228,14 +237,21 @@ export default withRouter(({ history }) => {
             {isNotification && (
               <NotificationContainer>
                 <Element style={{ overflow: 'scroll', height: "480px" }}>
-                  {notiData && notiData.seeNotification.map(notification => (
-                    <NotificationBox onClick={() => handleNotification(notification)} key={notification.id}>
-                      <Avatar size="sm" url={notification.from.avatar} />
-                      <Message>
-                        {notification.message}
-                      </Message>
-                    </NotificationBox>
-                  ))}
+                  {notiData && notiData.seeNotification &&notiData.seeNotification.length===0 ?(
+                    <NotiMessage>
+                      알림 내용이 없습니다.
+                    </NotiMessage>
+                  )
+                  :(
+                    notiData.seeNotification.map(notification => (
+                      <NotificationBox onClick={() => handleNotification(notification)} key={notification.id}>
+                        <Avatar size="sm" url={notification.from.avatar} />
+                        <Message>
+                          {notification.message}
+                        </Message>
+                      </NotificationBox>
+                    ))
+                  )}
                 </Element>
               </NotificationContainer>
 
