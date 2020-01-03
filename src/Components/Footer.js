@@ -13,12 +13,13 @@ const Footer = styled.footer`
 
 const List = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const ListItem = styled.div`
-  flex: 0 0 16.66%;
-  &:not(:last-child) {
-    margin-right: 16px;
+  flex: 0 0 50%;
+  @media (min-width: 576px){
+    flex: 0 0 33.33%;
   }
   @media (min-width: 768px){
     flex: 0 0 auto;

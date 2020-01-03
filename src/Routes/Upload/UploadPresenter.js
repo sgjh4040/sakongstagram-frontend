@@ -18,7 +18,13 @@ const Wrapper = styled.div`
 `;
 const UploadForm = styled.form`
     margin:0 auto;
+    min-width: 300px;
+    @media (min-width: 576px){
     min-width: 500px;
+  }
+  @media (min-width: 768px){
+    min-width: 500px;
+  }
 `;
 const InputWrapper = styled.div`
     margin-bottom:10px;

@@ -10,15 +10,18 @@ import {getFormattedRegDate} from "../../Util"
 const Post = styled.div`
   ${props => props.theme.whiteBox};
   width: 100%;
-  max-width: 600px;
+  max-width: 300px;
   user-select: none;
   margin: 0 auto 30px;
   a {
     color: inherit;
   }
+  @media (min-width: 576px){
+    max-width: 500px;
+  }
   @media (min-width: 768px){
     /* max-width: 600px; */
-    width: 100%;
+    max-width: 600px;
   }
 `;
 
@@ -48,9 +51,9 @@ const Files = styled.div`
 `;
 
 const File = styled.img`
-    max-width: 100%;
+  max-width: 100%;
   width: 100%;
-  height: 600px;
+  height: 300px;
   position: absolute;
   top: 0;
   background-image: url(${props => props.src}});
@@ -58,6 +61,13 @@ const File = styled.img`
   background-position: center;
   opacity: ${props => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
+  @media (min-width: 576px){
+    height: 500px;
+  }
+  @media (min-width: 768px){
+    /* max-width: 600px; */
+    height: 600px;
+  }
 `;
 
 const Button = styled.span`

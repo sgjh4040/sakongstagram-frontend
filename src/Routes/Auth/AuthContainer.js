@@ -96,6 +96,7 @@ export default () => {
     } else if (action === "confirm") {
       if (secret.value !== "") {
         try {
+          setLoading(true);
           console.log(secret.value);
           const {
             data: { confirmSecret: token }
@@ -107,6 +108,8 @@ export default () => {
           }
         } catch {
           toast.error("확인할수 없습니다. 다시 확인하세요");
+        }finally{
+          setLoading(false);
         }
       }
     }

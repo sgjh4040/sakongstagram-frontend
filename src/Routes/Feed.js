@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
@@ -60,9 +60,9 @@ export default () => {
       items
     }
   });
-  useEffect(()=>{
+  useEffect(() => {
     refetch();
-  },[])
+  }, [])
 
   const onLoadMore = () => {
 
@@ -72,12 +72,13 @@ export default () => {
         items
       },
       updateQuery: (prev, { fetchMoreResult }) => {
+        console.log('prev', fetchMoreResult);
         if (!fetchMoreResult) {
           console.log("false")
           setHasMore(false);
           return prev;
         }
-        if(fetchMoreResult.seeFeeds.length<items){
+        if (fetchMoreResult.seeFeeds.length < items) {
           setHasMore(false);
         }
         return Object.assign({}, prev, {
@@ -100,16 +101,31 @@ export default () => {
       onLoadMore();
     }
   };
-  return (
-    <Wrapper>
-      <Helmet>
-        <title>Feed | sakongStargram</title>
-      </Helmet>
 
-      {loading && <Loader />}
-      {!loading &&
-        data &&
-        data.seeFeeds && (
+  if (loading) {
+    return (
+      <Wrapper>
+        <Helmet>
+          <title>Feed | sakongStargram</title>
+        </Helmet>
+        {loading && <Loader />}
+      </Wrapper>
+    )
+  } else if (!loading && data && data.seeFeeds) {
+    if (data.seeFeeds.length === 0) {
+      return (
+        <Wrapper>
+          <Helmet>
+            <title>Feed | sakongStargram</title>
+          </Helmet>
+        </Wrapper>
+      )
+    }else{
+      return(
+        <Wrapper>
+          <Helmet>
+            <title>Feed | sakongStargram</title>
+          </Helmet>
           <InfiniteScroll
             dataLength={data.seeFeeds.length}
             next={onLoadMore}
@@ -135,8 +151,8 @@ export default () => {
               />
             ))}
           </InfiniteScroll>
-        )}
-
-    </Wrapper>
-  );
+        </Wrapper>
+      )
+    }
+  }
 };
