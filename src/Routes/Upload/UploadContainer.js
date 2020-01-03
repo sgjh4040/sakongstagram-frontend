@@ -10,7 +10,7 @@ import { FEED_QUERYS } from "../Feed"
 import Loader from "../../Components/Loader";
 
 export default withRouter(({ history }) => {
-
+    console.log(process.env.NODE_ENV);
     const captionInput = useInput("");
     const locationInput = useInput("");
     const [selectedImage, setSelectedImage] = useState();
@@ -25,6 +25,9 @@ export default withRouter(({ history }) => {
         }]
     });
     const [loading, setIsLoading] = useState(false);
+    const url = process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : "https://sakongstagram-backend.herokuapp.com"
 
 
     const onImageChange = async (event) => {
@@ -69,7 +72,7 @@ export default withRouter(({ history }) => {
             setIsLoading(true);
             const {
                 data: location
-            } = await axios.post("http://localhost:4000/api/uploads", formData, {
+            } = await axios.post(`${url}/api/uploads`, formData, {
                 headers: {
                     "content-type": "multipart/form-data",
                     "Access-Control-Allow-Origin": "*"
@@ -91,7 +94,7 @@ export default withRouter(({ history }) => {
             }
         } catch (e) {
             toast.success("실패1");
-            toast.error(e);
+            toast.success(`${e}`);
         } finally {
             toast.success("실패2")
             setIsLoading(false);
