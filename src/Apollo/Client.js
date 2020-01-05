@@ -1,4 +1,5 @@
 import ApolloCient from 'apollo-boost';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import {defaults, resolvers} from "./LocalState";
 import fetch from 'unfetch';
 
@@ -10,7 +11,7 @@ export default new ApolloCient({
         defaults,
         resolvers
     },
-    fetchOptions: {fetch},
+    cache: new InMemoryCache(),
     request: async (operation)=>{
         const token = await localStorage.getItem("token");
         operation.setContext({
