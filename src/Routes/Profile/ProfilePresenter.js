@@ -98,19 +98,19 @@ export default ({ loading, avatarLoading, data, logOut, onImageChange }) => {
   window.scroll(0, 0);
   const [isModal, setIsModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState('');
-  const [size,setSize] = useState('ml');
+  const [size, setSize] = useState('ml');
 
-  useEffect(()=>{
-    window.addEventListener("resize",resize);
-  },[])
+  useEffect(() => {
+    window.addEventListener("resize", resize);
+  }, [])
 
   const resize = () => {
     console.log(window.innerWidth);
-      if(window.innerWidth >=768){
-        setSize("lg");
-      }else if(window.innerWidth >= 576){
-        setSize("ml");
-      }
+    if (window.innerWidth >= 768) {
+      setSize("lg");
+    } else if (window.innerWidth >= 576) {
+      setSize("ml");
+    }
   }
 
   const openModal = (id) => {
@@ -152,8 +152,14 @@ export default ({ loading, avatarLoading, data, logOut, onImageChange }) => {
         <Header>
           <HeaderColumn>
             <Avatar size={size} url={avatar} />
+
             <IconBox for="avatar-input">
-              <Plus />
+              {isSelf ? (
+                <Plus />
+              ) : (
+                  <></>
+                )}
+
             </IconBox>
             {avatarLoading ? <FadeLoader
               css={override}
