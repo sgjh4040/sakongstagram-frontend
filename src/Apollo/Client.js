@@ -1,9 +1,9 @@
 import ApolloCient from 'apollo-boost';
 import {defaults, resolvers} from "./LocalState";
+import invariant from "invariant";
+
 export default new ApolloCient({
-    uri:process.env.NODE_ENV === "development"
-    ? "http://localhost:4000"
-    : "https://sakongstagram-backend.herokuapp.com/",
+    uri:"https://sakongstagram-backend.herokuapp.com/",
     clientState:{
         defaults,
         resolvers
