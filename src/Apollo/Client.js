@@ -1,6 +1,6 @@
 import ApolloCient from 'apollo-boost';
 import {defaults, resolvers} from "./LocalState";
-import fetch from 'node-fetch';
+import fetch from 'unfetch';
 
 export default new ApolloCient({
     uri:process.env.NODE_ENV === "development"
@@ -10,7 +10,7 @@ export default new ApolloCient({
         defaults,
         resolvers
     },
-    fetch: fetch,
+    fetchOptions: {fetch},
     request: async (operation)=>{
         const token = await localStorage.getItem("token");
         operation.setContext({
