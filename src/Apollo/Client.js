@@ -4,7 +4,6 @@ import {defaults, resolvers} from "./LocalState";
 import fetch from 'unfetch';
 
 export default new ApolloCient({
-    fetchOptions: { fetch },
     uri:process.env.NODE_ENV === "development"
     ? "http://localhost:4000"
     : "https://sakongstagram-backend.herokuapp.com/",
@@ -12,7 +11,6 @@ export default new ApolloCient({
         defaults,
         resolvers
     },
-    cache: new InMemoryCache(),
     request: async (operation)=>{
         const token = await localStorage.getItem("token");
         operation.setContext({

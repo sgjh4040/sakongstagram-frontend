@@ -6,6 +6,7 @@ import Client from './Apollo/Client';
 import 'babel-polyfill';
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import 'whatwg-fetch';
 
 ReactDOM.render(<ApolloProvider client={Client}><App /></ApolloProvider>, document.getElementById('root'));
 
