@@ -18,6 +18,5 @@ export default new ApolloCient({
                 authorization: token ? `Bearer ${token}` : ''
             }
         })
-
     }
 });
