@@ -1,7 +1,6 @@
 import ApolloCient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import {defaults, resolvers} from "./LocalState";
-import fetch from 'unfetch';
 import 'whatwg-fetch';
 
 export default new ApolloCient({
