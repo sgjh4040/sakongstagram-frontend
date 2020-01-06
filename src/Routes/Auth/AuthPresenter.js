@@ -92,7 +92,7 @@ export default ({
           <Input placeholder={"First name"} {...firstName} />
           <Input placeholder={"Last name"} {...lastName} />
           <Input placeholder={"Email"} {...email} type="email" />
-          <Input placeholder={"Username"} {...username} />
+          <Input placeholder={"닉네임"} {...username} />
           <Button loading={loading} text={"회원가입"} />
         </form>
       </>
@@ -103,8 +103,8 @@ export default ({
           <title>비밀키 확인 | SakongStagram</title>
         </Helmet>
         <form onSubmit={onSubmit}>
-          <Input placeholder="Paste your secret" required {...secret} />
-          <Button loading={loading} text={"Confirm"} />
+          <Input placeholder="메일로 발송된 문자를 입력하세요" required {...secret} />
+          <Button loading={loading} text={"확인"} />
         </form>
       </>
       )}

@@ -60,6 +60,8 @@ export default withRouter(({ history }) => {
         }else if (selectedImage===undefined||selectedImage.length===0){
             toast.error("파일 업로드 해주세요");
 
+        }else if (selectedImage.length>5){
+            toast.error("사진은 최대 5장까지 업로드 가능합니다");
         }
         console.log(captionInput.value);
         console.log(locationInput.value);
