@@ -5,7 +5,7 @@ import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 import TextareaAutosize from "react-autosize-textarea";
-import {getFormattedRegDate} from "../../Util"
+import { getFormattedRegDate } from "../../Util"
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -122,7 +122,7 @@ const Caption = styled.div`
 
 
 export default ({
-  user: { username, avatar,id },
+  user: { username, avatar, id },
   location,
   files,
   isLiked,
@@ -134,7 +134,8 @@ export default ({
   onKeyPress,
   comments,
   selfComments,
-  caption
+  caption,
+  loading
 }) => (
     <Post>
       <Header>
@@ -166,13 +167,17 @@ export default ({
           <Comments>
             {comments.map(comment => (
               <Comment key={comment.id}>
-                <FatText text={comment.user.username} />
+                <Link to={`/${comment.user.id}`}>
+                  <FatText text={comment.user.username} />
+                </Link>
                 {comment.text}
               </Comment>
             ))}
             {selfComments.map(comment => (
               <Comment key={comment.id}>
-                <FatText text={comment.user.username} />
+                <Link to={`/${comment.user.id}`}>
+                  <FatText text={comment.user.username} />
+                </Link>
                 {comment.text}
               </Comment>
             ))}
@@ -180,10 +185,11 @@ export default ({
         )}
         <Timestamp>{getFormattedRegDate(createdAt)}</Timestamp>
         <Textarea
-          placeholder={"댓글을 달아주세요..."}
+          placeholder={loading ? "댓글이 달리고있어요!" : "댓글을 달아주세요..."}
           value={newComment.value}
           onChange={newComment.onChange}
           onKeyPress={onKeyPress}
+          disabled={loading}
         />
       </Meta>
     </Post>

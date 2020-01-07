@@ -21,6 +21,7 @@ const PostContainer = ({
     const [likeCountS, setLikeCount] = useState(likeCount);
     const [currentItem, setCurrentItem] = useState(0);
     const [selfComments, setSelfComments] = useState([]);
+    const [loading, setLoading] = useState(false);
     const comment = useInput("");
     const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
         variables: { postId: id }
@@ -55,15 +56,19 @@ const PostContainer = ({
         if (which === 13) {
             event.preventDefault();
             try {
+                setLoading(true);
+                comment.setValue("");
                 const {
                     data: { addComment }
                 } = await addCommentMutation();
                 console.log(addComment);
                 setSelfComments([...selfComments, addComment]);
-                comment.setValue("");
+                
             } catch(e) {
                 console.log(e)
-                toast.error("Cant send comment");
+                toast.error("댓글을 달 수 없습니다");
+            }finally{
+                setLoading(false);
             }
         }
     };
@@ -85,6 +90,7 @@ const PostContainer = ({
             toggleLike={toggleLike}
             onKeyPress={onKeyPress}
             selfComments={selfComments}
+            loading ={loading}
 
         />
     );
