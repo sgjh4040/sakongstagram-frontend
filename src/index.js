@@ -6,6 +6,7 @@ import Client from './Apollo/Client';
 import 'babel-polyfill';
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import 'react-app-polyfill/ie9';
 
 
 ReactDOM.render(<ApolloProvider client={Client}><App /></ApolloProvider>, document.getElementById('root'));

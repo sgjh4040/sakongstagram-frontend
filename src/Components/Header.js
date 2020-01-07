@@ -10,14 +10,14 @@ import Avatar from "./Avatar";
 import { NOTI_QUERY, DELETE_NOTIFICATION } from "./Query";
 import * as Scroll from 'react-scroll';
 import { Element, animateScroll as scroll, } from 'react-scroll';
-
+import {Close} from "./Icons"
 
 
 
 const Header = styled.header`
   width: 100%;
   border: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: white;
@@ -155,9 +155,27 @@ const NotiMessage = styled.div`
   }
 `;
 
+const EditBox = styled.div`
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  right:50px;
+  top:100px;
+  border: 1px solid #e6e6e6;
+  padding: 30px;
+  background-color: white;
+`;
+const CloseIcon = styled.span`
+    position: absolute;
+    cursor: pointer;
+    right:0;
+    top:0;
+    fill:black;
+`;
 export default withRouter(({ history }) => {
   const search = useInput("");
   const [isNotification, setIsNotification] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(true);
   const { data } = useQuery(ME);
   const { data: notiData, refetch } = useQuery(NOTI_QUERY);
   const [deleteNotification] = useMutation(DELETE_NOTIFICATION, {
@@ -188,6 +206,13 @@ export default withRouter(({ history }) => {
       setIsNotification(true);
     }
   }
+  const toggleEditModal = () => {
+    if (isEditModal) {
+      setIsEditModal(false);
+    } else {
+      setIsEditModal(true);
+    }
+  }
   const hideNoticication = () => {
     setIsNotification(false);
   }
@@ -214,6 +239,19 @@ export default withRouter(({ history }) => {
   }, [])
   return (
     <Header>
+      {isEditModal ? <EditBox>
+        <CloseIcon onClick={toggleEditModal}>
+          <Close/>
+        </CloseIcon>
+        <div>
+          수정사항:  포스트 디테일박스 css 수정, 채팅기능을 위한 client 수정(apollo-boost to apollo client)
+          
+        </div>
+        <div>
+        추가할 기능: 채팅 기능 추가할 예정
+        </div>
+       
+      </EditBox>: <></>}
       <HeaderWrapper>
         <HeaderColumn>
           <Link to="/">

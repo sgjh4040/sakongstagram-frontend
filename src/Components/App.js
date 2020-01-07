@@ -12,7 +12,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 const QUERY = gql`
   {
-    isLoggedIn @client
+    isLoggedIn @client(always: true)
   }
 `;
 const Wrapper = styled.div`
@@ -23,7 +23,8 @@ const Wrapper = styled.div`
 `;
 
 export default () => {
-  const { data: { isLoggedIn } } = useQuery(QUERY);
+  const { data:{isLoggedIn} } = useQuery(QUERY);
+
 
   return (
     <ThemeProvider theme={Theme}>

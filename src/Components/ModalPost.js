@@ -25,24 +25,33 @@ const Modal = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 900px;
     background-color: white;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+    @media (min-width: 576px){
+        width: 900px;
+    }
 `;
 const PostImage = styled.div`
     background-image: url(${props => props.bg});
     background-size: cover;
     cursor: pointer;
-    width: 600px;
-    height: 600px;
+    width: 300px;
+    height: 300px;
+    @media (min-width: 576px){
+        width: 600px;
+        height: 600px;
+    }
 `;
 const CommentContainer = styled.div`
     width: 300px;
 `;
 
-const FlexRow = styled.div`
+const Flex = styled.div`
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
+    @media (min-width: 576px){
+        flex-direction:row;
+    }
 `;
 const Header = styled.header`
   padding: 15px;
@@ -75,6 +84,14 @@ display: block;
 margin:250px auto;
 
 `;
+const ScrollBox = styled(Element)`
+    overflow: scroll;
+    min-height: 100px;
+    max-height: 400px;
+    @media (min-width: 576px){
+        height: 480px;
+    }
+`
 
 export default ({
     id,
@@ -90,7 +107,7 @@ export default ({
                     <Close/>
                 </CloseIcon>
                 <Modal>
-                    <FlexRow>
+                    <Flex>
                         <PostImage bg={data.seeFullPost.files[0].url} />
                         <CommentContainer>
                             <Header>
@@ -100,7 +117,7 @@ export default ({
                             </Header>
 
                             <Comments>
-                                <Element style={{ overflow: 'scroll', height: "480px" }}>
+                                <ScrollBox>
                                     {data.seeFullPost.comments.map(comment => (
                                         <CommentBox key={comment.id}>
                                             <Avatar size="sm" url={comment.user.avatar} />
@@ -108,11 +125,11 @@ export default ({
                                             <Text>{comment.text}</Text>
                                         </CommentBox>
                                     ))}
-                                </Element>
+                                </ScrollBox>
                             </Comments>
 
                         </CommentContainer>
-                    </FlexRow>
+                    </Flex>
 
                 </Modal>
             </ModalContainer>

@@ -99,7 +99,7 @@ const Timestamp = styled.span`
 `;
 const Textarea = styled(TextareaAutosize)`
   border: none;
-  width: 100%;
+  width: 80%;
   resize: none;
   font-size: 14px;
   &:focus {
