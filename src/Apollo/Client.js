@@ -19,7 +19,7 @@ const httpLink = new createHttpLink({
 const wsLink = new WebSocketLink({
   uri: process.env.NODE_ENV === "development"
   ? "ws://localhost:4000"
-  : "ws://sakongstagram-backend.herokuapp.com/",
+  : "wss://sakongstagram-backend.herokuapp.com/",
   options: {
     reconnect: true
   }
