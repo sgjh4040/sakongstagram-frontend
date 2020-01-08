@@ -7,7 +7,8 @@ import Explore from "../Routes/Explore";
 import Search from "../Routes/Search";
 import Profile from "../Routes/Profile";
 import Post from "../Routes/Post";
-import Upload from "../Routes/Upload"
+import Upload from "../Routes/Upload";
+import Chat from "../Routes/Chat"
 
 
 const LoggedInRoutes = () =>
@@ -17,6 +18,7 @@ const LoggedInRoutes = () =>
             <Route path="/explore" component={Explore} />
             <Route path="/search" component={Search} />
             <Route path="/upload" component={Upload} />
+            <Route path="/chat" component={Chat} />
             <Route path="/post/:id" component={Post} />
             <Route path="/:id" component={Profile} />
             <Redirect from="*" to="/" />
