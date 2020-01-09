@@ -307,7 +307,7 @@ export default withRouter(({ history }) => {
                 <HeaderLink to="/upload">
                   <Plus />
                 </HeaderLink>
-                <HeaderLink to={data.me.id}>
+                <HeaderLink to={`/${data.me.id}`}>
                   <User />
                 </HeaderLink>
               </>

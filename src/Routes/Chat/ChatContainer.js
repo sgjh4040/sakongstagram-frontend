@@ -10,5 +10,7 @@ export default ()=>{
 
     const{data,loading} = useQuery(ROOMS_QUERY);
 
-    return <ChatPresenter loading={loading} data={data}/>
+    return(
+            <ChatPresenter loading={loading} data={data}/>
+    ) 
 }

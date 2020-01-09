@@ -9,6 +9,7 @@ import Profile from "../Routes/Profile";
 import Post from "../Routes/Post";
 import Upload from "../Routes/Upload";
 import Chat from "../Routes/Chat"
+import ChatRoom from "../Routes/ChatRoom"
 
 
 const LoggedInRoutes = () =>
@@ -18,6 +19,7 @@ const LoggedInRoutes = () =>
             <Route path="/explore" component={Explore} />
             <Route path="/search" component={Search} />
             <Route path="/upload" component={Upload} />
+            <Route path="/chat/:id" component={ChatRoom} />
             <Route path="/chat" component={Chat} />
             <Route path="/post/:id" component={Post} />
             <Route path="/:id" component={Profile} />
