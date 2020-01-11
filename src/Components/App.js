@@ -10,16 +10,24 @@ import { HashRouter as Router } from "react-router-dom";
 import { useQuery } from 'react-apollo-hooks';
 import Footer from "./Footer";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 const QUERY = gql`
   {
     isLoggedIn @client(always: true)
   }
 `;
 const Wrapper = styled.div`
+  position: relative;
   margin: 0 auto;
   max-width: 935px;
   width: 100%;
   max-width: ${props => props.theme.maxWidth};
+`;
+
+const MessengerIcon = styled.span`
+  position:fixed;
+  right:5%;
+  bottom:7%;
 `;
 
 export default () => {
@@ -37,6 +45,11 @@ export default () => {
             <Wrapper>
               <Routes isLoggedIn={isLoggedIn} />
               <Footer />
+              <MessengerIcon>
+              <Link to={'/chat'}>
+                <img style={{width:'50px',height:'50px'}} src={require('../assets/icon/messenger.png')}></img>
+                </Link>
+              </MessengerIcon>
             </Wrapper>
           </>
         </Router>

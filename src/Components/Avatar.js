@@ -24,7 +24,7 @@ const Container = styled.div`
   ${props => getSize(props.size)}
   background-image:url(${props => props.url});
   background-size:cover;
-  border-radius:50%;
+  border-radius:40%;
 `;
 const Avatar = ({ size = "sm", url, className }) => (
   <Container className={className} size={size} url={url} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import queryString from 'query-string';
 import withRouter from "react-router-dom/withRouter";
 // import { useQuery, useMutation, useSubscription } from "react-apollo-hooks";
@@ -13,6 +13,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
     const [newMessage, setNewMessage] = useState([]);
     const [sendLoading, setSendLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const chatBox = useRef(null);
     const { subscribeToMore, data, loading } = useQuery(SEE_ROOM, {
         variables: {
             id: roomId
@@ -61,6 +62,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
             return
         } finally {
             setMessage("");
+            scrollToBottom();
             setSendLoading(false);
 
         }
@@ -71,19 +73,30 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
         } = e;
         setMessage(value);
     };
+    const scrollToBottom = () => {
+        console.log(chatBox.current);
+        chatBox.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
+    }
     useEffect(() => {
         more();
+        
     }, []);
+    useEffect(()=>{
+        if (!loading) {
+            scrollToBottom();
+        }
+    },[newMessage])
 
 
-    return <ChatRoomPresenter 
-    loading={loading} 
-    data={data} 
-    newMessage={newMessage} 
-    message={message}
-    onChange={onChange}
-    onSubmit={onSubmit}
-    
+    return <ChatRoomPresenter
+        loading={loading}
+        data={data}
+        newMessage={newMessage}
+        message={message}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        chatBox={chatBox}
+
     />
 })
 export default chat;

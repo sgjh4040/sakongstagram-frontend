@@ -3,12 +3,29 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Loader from "../../Components/Loader"
 import Input from "../../Components/Input";
+import { Element } from 'react-scroll';
+import ChatCard from "../../Components/ChatCard";
 
 const Wrapper = styled.div`
-  display: block;
-  
   min-height: 80vh;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  flex-direction: column;
+  
 `;
+const ChatBox = styled.div`
+ width: 350px;
+ border: 1px solid #E6E6E6;
+ padding: 5px;
+`
+const ScrollBox = styled(Element)`
+    overflow:scroll;
+    height: 400px;
+
+`;
+
+
 const SearchInput = styled(Input)`
   background-color: ${props => props.theme.bgColor};
   padding: 5px;
@@ -21,14 +38,11 @@ const SearchInput = styled(Input)`
     opacity: 0.8;
     font-weight: 200;
   }
-  @media (min-width: 576px){
-    width: 70%;
-  }
 `;
 
 
 const ChatPresenter = (
-    {   data,
+    { data,
         loading,
         history,
         search,
@@ -45,37 +59,32 @@ const ChatPresenter = (
         </Wrapper>
     } else if (!loading) {
         return (
-
-
             <Wrapper>
+                <ChatBox>
                 <form onSubmit={onSearchSubmit}>
                     <SearchInput
                         value={search.value}
                         onChange={onChange}
                         onKeyPress={onKeyPress}
-                        placeholder="Search" />
+                        placeholder="채팅할 유저 검색하세요" />
                 </form>
-
-                {searchLoading ? <Loader/>:(
-                    searchData&&searchData.searchUser.length ===0 ? <div>검색 결과 없음</div>
-                    :(
-                        searchData ? (searchData.searchUser.map(user => <div onClick={()=>handleCreateRoom(user)}>{user.username}</div>))
-                        :<></>
-                    )
+                {searchLoading ? <Loader /> : (
+                    searchData && searchData.searchUser.length === 0 ? <div>검색 결과 없음</div>
+                        : (
+                            searchData ? (searchData.searchUser.map(user => <div onClick={() => handleCreateRoom(user)}>{user.username}</div>))
+                                : <></>
+                        )
                 )}
 
 
-
-                {data.seeRooms.map(room => {
-                    return (
-                        <Link to={`/chat/${room.id}`} >
-                            <div>
-                                {room.id}
-                            </div>
-                        </Link>
-                    )
-                })}
-
+                <ScrollBox>
+                    {data.seeRooms.map(room => {
+                        return (
+                            <ChatCard me={data.me} id={room.id} participants={room.participants}/>
+                        )
+                    })}
+                </ScrollBox>
+                </ChatBox>
             </Wrapper>
 
         )

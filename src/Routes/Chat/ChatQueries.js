@@ -40,19 +40,14 @@ export const SEE_ROOM = gql`
     query seeRoom($id:String!){
         seeRoom(id: $id){
             id
-            participants{
-                id
-                username
-            }
             messages{
                 id
                 text
                 createdAt
                 from{
                     id
-                }
-                room{
-                    id
+                    avatar
+                    username
                 }
             }
         }
@@ -70,6 +65,7 @@ export const SEND_MESSAGE = gql`
         createdAt
         from{
             id
+            avatar
         }
         room{
             id
@@ -85,6 +81,7 @@ export const NEW_MESSAGE = gql`
             createdAt
             from{
                 id
+                avatar
             }
             room{
                 id

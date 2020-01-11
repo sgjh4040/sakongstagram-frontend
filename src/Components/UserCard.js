@@ -12,6 +12,7 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  text-decoration: none;
 `;
 
 const EAvatar = styled(Avatar)`
