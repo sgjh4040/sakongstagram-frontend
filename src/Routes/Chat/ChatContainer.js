@@ -10,15 +10,20 @@ import useInput from "../../Hooks/useInput";
 export default ({history})=>{
     const search = useInput("");
     const [shouldFetch,setShouldFetch] = useState(false);
-    const{data,loading} = useQuery(ROOMS_QUERY);
-    const {data:searchData, loading:searchLoading, refetch} = useQuery(SEARCH, {
+    const{data,loading,refetch} = useQuery(ROOMS_QUERY);
+    const {data:searchData, loading:searchLoading} = useQuery(SEARCH, {
         variables: {
             term:search.value
         },
         skip: !shouldFetch,
         fetchPolicy: "network-only"
     });
-    const [createRoomMutaion] = useMutation(CREATE_ROOM);
+    const [createRoomMutaion] = useMutation(CREATE_ROOM,{
+        refetchQueries:() => [{
+            query: ROOMS_QUERY,
+            variables:{}
+        }]
+    });
 
     const handleCreateRoom =async (toId)=>{
         console.log(toId);
@@ -37,10 +42,7 @@ export default ({history})=>{
         }catch{
 
         }
-
-        
     }
-
     const onChange = (e)=>{
         search.onChange(e);
         setShouldFetch(false);
@@ -65,6 +67,9 @@ export default ({history})=>{
             return
         }
     };
+    useEffect(()=>{
+        refetch();
+    },[])
     
 
     return(
