@@ -23,13 +23,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
         variables: {
             message,
             roomId: roomId
-        },
-        refetchQueries: ()=>[{
-            query: SEE_ROOM,
-            variables: {
-                id: roomId
-            }
-        }],
+        }
     });
 
 
@@ -85,7 +79,6 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
     }
     useEffect(() => {
         more();
-        
     }, []);
     useEffect(()=>{
         if (!loading) {
