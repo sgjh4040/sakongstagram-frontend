@@ -39,7 +39,6 @@ export const ROOMS_QUERY = gql`
 export const SEE_ROOM = gql`
     query seeRoom($id:String!){
         seeRoom(id: $id){
-            id
             messages{
                 id
                 text

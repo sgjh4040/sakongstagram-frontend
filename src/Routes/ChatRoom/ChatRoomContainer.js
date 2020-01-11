@@ -35,18 +35,14 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
         },
         updateQuery: (prev, { subscriptionData }) => {
             if (!subscriptionData.data) return prev;
-            console.log(prev);
             const newMessage = subscriptionData.data.newMessage;
             console.log(newMessage);
-            setNewMessage(prev => [...prev, newMessage]);
-            return {
-                ...prev
-            }
-            // return Object.assign({}, prev, {
-            //     seeRoom: {
-            //         messages:[...prev.seeRoom.messages,newMessage]
-            //     }
-            // });
+            // setNewMessage(prev => [...prev, newMessage]);
+            // return {
+            //     ...prev
+            // }
+            prev.seeRoom.messages.push(newMessage);
+            return prev;
         },
     });
     const onSubmit = async () => {
@@ -84,7 +80,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
         if (!loading) {
             scrollToBottom();
         }
-    },[newMessage])
+    },[data])
 
 
     return <ChatRoomPresenter
