@@ -5,6 +5,7 @@ import Loader from "../../Components/Loader"
 import Input from "../../Components/Input";
 import { Element } from 'react-scroll';
 import ChatCard from "../../Components/ChatCard";
+import Avatar from "../../Components/Avatar";
 
 const Wrapper = styled.div`
   min-height: 80vh;
@@ -24,6 +25,30 @@ const ScrollBox = styled(Element)`
     height: 400px;
 
 `;
+const SearchResultContainer = styled.div`
+    display:flex;
+    flex-direction: row;
+    min-height: 100px;
+    align-items:center;
+    justify-content: center;
+    overflow:scroll;
+
+`;
+const UserBox = styled.div`
+ display:flex;
+ flex-direction: column;
+ cursor: pointer;
+ &:not(:last-child){
+     margin-right:10px;
+ }
+
+`;
+const UserName = styled.div`
+    font-size:12px;
+    text-align: center;
+    color:#262626;
+
+`
 
 
 const SearchInput = styled(Input)`
@@ -61,29 +86,40 @@ const ChatPresenter = (
         return (
             <Wrapper>
                 <ChatBox>
-                <form onSubmit={onSearchSubmit}>
-                    <SearchInput
-                        value={search.value}
-                        onChange={onChange}
-                        onKeyPress={onKeyPress}
-                        placeholder="채팅할 유저 검색하세요" />
-                </form>
-                {searchLoading ? <Loader /> : (
-                    searchData && searchData.searchUser.length === 0 ? <div>검색 결과 없음</div>
-                        : (
-                            searchData ? (searchData.searchUser.map(user => <div onClick={() => handleCreateRoom(user)}>{user.username}</div>))
-                                : <></>
+                    <form onSubmit={onSearchSubmit}>
+                        <SearchInput
+                            value={search.value}
+                            onChange={onChange}
+                            onKeyPress={onKeyPress}
+                            placeholder="채팅할 유저 검색하세요" />
+                    </form>
+                    {searchLoading ? <Loader /> : (
+                        searchData && searchData.searchUser.length === 0 ? (
+                            <SearchResultContainer>
+                                <div>검색 결과가 없습니다</div>
+                            </SearchResultContainer>
                         )
-                )}
-
-
-                <ScrollBox>
-                    {data.seeRooms.map(room => {
-                        return (
-                            <ChatCard me={data.me} id={room.id} participants={room.participants}/>
-                        )
-                    })}
-                </ScrollBox>
+                            : (
+                                searchData ? (
+                                    <SearchResultContainer>
+                                        {searchData.searchUser.map(user => (
+                                            <UserBox key={user.id} onClick={() => handleCreateRoom(user)}>
+                                                <Avatar size={"md"} url={user.avatar} />
+                                                <UserName>{user.username}</UserName>
+                                            </UserBox>
+                                        ))}
+                                    </SearchResultContainer>
+                                )
+                                    : <></>
+                            )
+                    )}
+                    <ScrollBox>
+                        {data.seeRooms.map(room => {
+                            return (
+                                <ChatCard key={room.id} me={data.me} id={room.id} participants={room.participants} />
+                            )
+                        })}
+                    </ScrollBox>
                 </ChatBox>
             </Wrapper>
 

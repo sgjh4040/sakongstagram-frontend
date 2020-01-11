@@ -90,6 +90,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
 
     return <ChatRoomPresenter
         loading={loading}
+        sendLoading={sendLoading}
         data={data}
         newMessage={newMessage}
         message={message}

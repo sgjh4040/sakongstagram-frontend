@@ -11,6 +11,7 @@ import { NOTI_QUERY, DELETE_NOTIFICATION } from "./Query";
 import * as Scroll from 'react-scroll';
 import { Element, animateScroll as scroll, } from 'react-scroll';
 import {Close} from "./Icons"
+import FatText from "./FatText";
 
  
 
@@ -164,6 +165,7 @@ const EditBox = styled.div`
   border: 1px solid #e6e6e6;
   padding: 30px;
   background-color: white;
+  overflow:scroll;
 `;
 const CloseIcon = styled.span`
     position: absolute;
@@ -243,13 +245,22 @@ export default withRouter(({ history }) => {
         <CloseIcon onClick={toggleEditModal}>
           <Close/>
         </CloseIcon>
-        <div>
-          수정사항:  포스트 디테일박스 css 수정, 채팅기능을 위한 client 수정(apollo-boost to apollo client)
-          
-        </div>
-        <div>
-        추가할 기능: 채팅 기능 추가할 예정
-        </div>
+        <ul>
+          <li>
+            <div>
+            <FatText text={'수정사항:'}/> 포스트 디테일박스 css 수정, 채팅기능을 위한 client 수정(apollo-boost to apollo client)
+            </div>
+            <div>
+            채팅기능 구현(2020-01-11)
+            </div>
+          </li>
+          <br/>
+          <li>
+            <div>
+            <FatText text={'추가할 기능:'}/> 알림.
+            </div>
+          </li>
+        </ul>
        
       </EditBox>: <></>}
       <HeaderWrapper>

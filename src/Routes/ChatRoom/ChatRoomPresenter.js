@@ -4,6 +4,8 @@ import Loader from "../../Components/Loader";
 import { Element } from 'react-scroll';
 import Avater from '../../Components/Avatar';
 import TextareaAutosize from "react-autosize-textarea";
+import { css } from "@emotion/core";
+import { SyncLoader } from "react-spinners";
 import * as moment from "../../Util";
 
 const Wrapper = styled.div`
@@ -81,8 +83,21 @@ const SendButton = styled.button`
     margin:0;
     border:none;
 `;
+const override = css`
+display: block;
+margin: 0 auto;
+`;
 
-const ChatRoomPresenter = ({ loading, data, newMessage, message, chatBox, onKeyPress, onChange, onSubmit }) => {
+const ChatRoomPresenter = ({
+    loading,
+    sendLoading,
+    data,
+    newMessage,
+    message,
+    chatBox,
+    onKeyPress,
+    onChange,
+    onSubmit }) => {
     const test = useRef(null);
 
 
@@ -103,7 +118,7 @@ const ChatRoomPresenter = ({ loading, data, newMessage, message, chatBox, onKeyP
                                 : (
                                     data.seeRoom.messages.map(message =>
                                         (message.from.id != me) ? (
-                                            <MessageContainer>
+                                            <MessageContainer key={message.id}>
                                                 <Avater url={message.from.avatar} size={"sm"} />
                                                 <ColumBox>
                                                     <UserName>
@@ -120,8 +135,8 @@ const ChatRoomPresenter = ({ loading, data, newMessage, message, chatBox, onKeyP
                                             </MessageContainer>
                                         )
                                             : (
-                                                <MessageContainer style={{ justifyContent: 'flex-end' }}>
-                                                    <Date style={{marginRight:'3px'}}>
+                                                <MessageContainer key={message.id} style={{ justifyContent: 'flex-end' }}>
+                                                    <Date style={{ marginRight: '3px' }}>
                                                         {moment.getFormattedRegDate(message.createdAt)}
                                                     </Date>
                                                     <MessageBubble bg={'#FFE404'}>
@@ -133,7 +148,7 @@ const ChatRoomPresenter = ({ loading, data, newMessage, message, chatBox, onKeyP
                                 )}
                             {newMessage.map(message =>
                                 (message.from.id != me) ? (
-                                    <MessageContainer>
+                                    <MessageContainer key={message.id}>
                                         <Avater url={message.from.avatar} size={"sm"} />
                                         <ColumBox>
                                             <UserName>
@@ -149,8 +164,8 @@ const ChatRoomPresenter = ({ loading, data, newMessage, message, chatBox, onKeyP
                                     </MessageContainer>
                                 )
                                     : (
-                                        <MessageContainer style={{ justifyContent: 'flex-end' }}>
-                                            <Date style={{marginRight:'3px'}}>
+                                        <MessageContainer key={message.id} style={{ justifyContent: 'flex-end' }}>
+                                            <Date style={{ marginRight: '3px' }}>
                                                 {moment.getFormattedRegDate(message.createdAt)}
                                             </Date>
                                             <MessageBubble bg={'#FFE404'}>
@@ -164,7 +179,14 @@ const ChatRoomPresenter = ({ loading, data, newMessage, message, chatBox, onKeyP
                 </ChatBox>
                 <InputBox>
                     <Textarea maxRows={3} value={message} onChange={onChange}></Textarea>
-                    <SendButton disabled={loading} onClick={onSubmit}>보내기</SendButton>
+                    <SendButton disabled={sendLoading} onClick={onSubmit}>
+                        {sendLoading ? <SyncLoader
+                            css={override}
+                            size={5}
+                            margin={1}
+                            color={"#FFFFFF"}
+                        />: <span>전송</span>}
+                    </SendButton>
                 </InputBox>
 
 
