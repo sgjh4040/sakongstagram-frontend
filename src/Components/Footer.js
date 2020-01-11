@@ -14,6 +14,7 @@ const Footer = styled.footer`
 const List = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width:100%;
 `;
 
 const ListItem = styled.div`
@@ -22,7 +23,7 @@ const ListItem = styled.div`
     flex: 0 0 33.33%;
   }
   @media (min-width: 768px){
-    flex: 0 0 auto;
+    flex: 0 0 8%;
   }
 `;
 

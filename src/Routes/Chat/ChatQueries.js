@@ -1,15 +1,24 @@
-import { gql } from "apollo-boost";
+
+import { gql } from '@apollo/client';
 
 export const SEARCH = gql`
     query searchUser($term: String!){
         searchUser(term: $term){
             id
             username
-            avatar
-            
+            avatar         
         }
     }
 `;
+export const CREATE_ROOM = gql`
+    mutation createRoom($toId: String!){
+        createRoom(toId:$toId){
+            id
+        }
+    }
+
+`;
+
 export const ROOMS_QUERY = gql`
     {
         seeRooms{
@@ -20,6 +29,9 @@ export const ROOMS_QUERY = gql`
               username
             }
         }
+        me{
+            id
+        }
         
     }
 `;
@@ -29,34 +41,39 @@ export const SEE_ROOM = gql`
         seeRoom(id: $id){
             id
             participants{
+                id
                 username
             }
             messages{
-            id
-            text
-            createdAt
-            from{
                 id
-            }
+                text
+                createdAt
+                from{
+                    id
+                }
+                room{
+                    id
+                }
             }
         }
+        me {
+            username
+            id
+            }
     }
 `;
 export const SEND_MESSAGE = gql`
   mutation sendMessage($roomId:String, $message:String!, $toId:String) {
     sendMessage(roomId: $roomId message: $message toId: $toId) {
-      id
-      text
-      room{
         id
-        messages{
+        text
+        createdAt
+        from{
             id
-            text
-            from{
-                id
-            }
         }
-      }
+        room{
+            id
+        }
     }
   }
 `;
@@ -65,7 +82,11 @@ export const NEW_MESSAGE = gql`
         newMessage(roomId: $roomId){
             id
             text
+            createdAt
             from{
+                id
+            }
+            room{
                 id
             }
         }

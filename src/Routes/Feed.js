@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo-hooks";
+// import { gql } from "apollo-boost";
+// import { useQuery } from "react-apollo-hooks";
 import Loader from "../Components/Loader";
 import Post from "../Components/Post";
 import Helmet from "react-helmet";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/core";
+import { useQuery, gql } from '@apollo/client';
 
 export const FEED_QUERYS = gql`
   query seeFeeds($pageNumber: Int!, $items: Int!){

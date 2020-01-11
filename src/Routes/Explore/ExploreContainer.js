@@ -25,7 +25,6 @@ const RANDOM_QUERY = gql`
 
 `;
 
-
 export default ()=> {
     const {loading,data,refetch} = useQuery(RANDOM_QUERY,{variables: {size:"10"}});
 

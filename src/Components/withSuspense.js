@@ -6,7 +6,7 @@ export default function withSuspense(Component) {
             return (
                 <Suspense
                     fallback={
-                        <></>
+                        <div>loading</div>
                     }
                 >
                     <Component/>

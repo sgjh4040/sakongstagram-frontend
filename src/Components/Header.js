@@ -12,7 +12,7 @@ import * as Scroll from 'react-scroll';
 import { Element, animateScroll as scroll, } from 'react-scroll';
 import {Close} from "./Icons"
 
-
+ 
 
 const Header = styled.header`
   width: 100%;
