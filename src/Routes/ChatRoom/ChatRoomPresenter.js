@@ -139,7 +139,9 @@ const ChatRoomPresenter = ({
                                                 <MessageContainer key={message.id} style={{ justifyContent: 'flex-end' }}>
                                                     <ColumBox style={{justifyContent:'flex-end'}}>
                                                 {message.readYn ? <></>
-                                                :<div style={{color:"#FCEF63", fontSize:"10px", marginBottom:"2px"}}>1</div>}
+                                                // :<div style={{color:"#FCEF63", fontSize:"10px", marginBottom:"2px"}}>1</div>
+                                                :<></>
+                                                }
                                                 <Date style={{ marginRight: '3px' }}>
                                                         {moment.getFormattedRegDate(message.createdAt)}
                                                     </Date>
