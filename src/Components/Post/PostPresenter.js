@@ -51,6 +51,7 @@ const Files = styled.div`
 `;
 
 const File = styled.img`
+  image-orientation: none;
   max-width: 100%;
   width: 100%;
   height: 300px;
