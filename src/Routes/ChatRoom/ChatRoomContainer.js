@@ -57,7 +57,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
             // return {
             //     ...prev
             // }
-     
+            updateReadYn();
             prev.seeRoom.messages.push(newMessage);
             return prev;
         },
