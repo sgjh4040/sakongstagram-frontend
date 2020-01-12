@@ -18,11 +18,18 @@ export const CREATE_ROOM = gql`
     }
 
 `;
+export const UPDATE_UNREAD = gql`
+    mutation updateRead($roomId: String!){
+        updateRead(roomId: $roomId)
+    }
+
+`;
 
 export const ROOMS_QUERY = gql`
     {
         seeRooms{
             id
+            unReadCount
             participants{
               id
               avatar
@@ -43,6 +50,10 @@ export const SEE_ROOM = gql`
                 id
                 text
                 createdAt
+                readYn
+                to{
+                id
+            }
                 from{
                     id
                     avatar
@@ -65,7 +76,11 @@ export const SEND_MESSAGE = gql`
         from{
             id
             avatar
+            username
         }
+        to{
+                id
+            }
         room{
             id
         }
@@ -77,10 +92,15 @@ export const NEW_MESSAGE = gql`
         newMessage(roomId: $roomId){
             id
             text
+            readYn
             createdAt
             from{
                 id
                 avatar
+                username
+            }
+            to{
+                id
             }
             room{
                 id

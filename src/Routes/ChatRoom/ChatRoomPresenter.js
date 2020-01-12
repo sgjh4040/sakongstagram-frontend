@@ -46,7 +46,7 @@ const UserName = styled.div`
 const MessageBubble = styled.div`
     background-color: ${props => props.bg};
     box-shadow:  0 5px 15px rgba(0, 0, 0, 0.15);
-    padding: 5px;
+    padding: 7px 5px;
     border-radius: 5px;
     font-size:12px;
     max-width: 200px;
@@ -127,18 +127,23 @@ const ChatRoomPresenter = ({
                                                     <MessageBubble bg={'#FFFFFF'}>
                                                         {message.text}
                                                     </MessageBubble>
-
                                                 </ColumBox>
                                                 <Date>
                                                     {moment.getFormattedRegDate(message.createdAt)}
                                                 </Date>
+                                                
+                                                
                                             </MessageContainer>
                                         )
                                             : (
                                                 <MessageContainer key={message.id} style={{ justifyContent: 'flex-end' }}>
-                                                    <Date style={{ marginRight: '3px' }}>
+                                                    <ColumBox style={{justifyContent:'flex-end'}}>
+                                                {message.readYn ? <></>
+                                                :<div style={{color:"#FCEF63", fontSize:"10px", marginBottom:"2px"}}>1</div>}
+                                                <Date style={{ marginRight: '3px' }}>
                                                         {moment.getFormattedRegDate(message.createdAt)}
                                                     </Date>
+                                                </ColumBox>
                                                     <MessageBubble bg={'#FFE404'}>
                                                         {message.text}
                                                     </MessageBubble>

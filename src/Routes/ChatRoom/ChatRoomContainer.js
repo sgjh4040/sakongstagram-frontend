@@ -3,11 +3,12 @@ import queryString from 'query-string';
 import withRouter from "react-router-dom/withRouter";
 // import { useQuery, useMutation, useSubscription } from "react-apollo-hooks";
 import ChatRoomPresenter from "./ChatRoomPresenter";
-import { SEE_ROOM, NEW_MESSAGE, SEND_MESSAGE } from "../Chat/ChatQueries"
+import { SEE_ROOM, NEW_MESSAGE, SEND_MESSAGE, UPDATE_UNREAD } from "../Chat/ChatQueries"
 import { ME } from "../../SharedQueries";
 import withSuspense from "../../Components/withSuspense";
 import Loader from "../../Components/Loader";
 import { useQuery, gql, useMutation, useSubscription } from '@apollo/client';
+import { toast } from "react-toastify";
 
 const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
     const [newMessage, setNewMessage] = useState([]);
@@ -25,6 +26,17 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
             roomId: roomId
         }
     });
+    const [updateReadYn] = useMutation(UPDATE_UNREAD, {
+        refetchQueries:() => [{
+            query: SEE_ROOM,
+            variables:{
+                id: roomId
+            }
+        }],
+        variables: {
+            roomId: roomId
+        }
+    });
 
 
 
@@ -37,10 +49,15 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
             if (!subscriptionData.data) return prev;
             const newMessage = subscriptionData.data.newMessage;
             console.log(newMessage);
+            console.log(prev.me.id);
+            if(newMessage.to.id === prev.me.id ){
+                toast.success(`${newMessage.from.username}:${newMessage.text}`)
+            }
             // setNewMessage(prev => [...prev, newMessage]);
             // return {
             //     ...prev
             // }
+     
             prev.seeRoom.messages.push(newMessage);
             return prev;
         },
@@ -53,6 +70,7 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
         try {
             setSendLoading(true);
             await sendMessageMutation();
+            await updateReadYn();
         } catch (e) {
             console.log(e);
             return
@@ -75,6 +93,8 @@ const chat = withRouter(({ match: { params: { id: roomId } }, location }) => {
     }
     useEffect(() => {
         more();
+        
+        
     }, []);
     useEffect(()=>{
         if (!loading) {

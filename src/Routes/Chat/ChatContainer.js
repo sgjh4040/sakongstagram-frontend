@@ -1,8 +1,9 @@
 import React, { useEffect,useState } from "react";
 import ChatPresenter from "./ChatPresenter";
 import {useQuery, useMutation} from "react-apollo-hooks";
-import {SEARCH,ROOMS_QUERY, CREATE_ROOM} from "./ChatQueries"
+import {SEARCH,ROOMS_QUERY, CREATE_ROOM, UPDATE_UNREAD} from "./ChatQueries"
 import useInput from "../../Hooks/useInput";
+import { NEW_MESSAGES } from "../../Components/App";
 
 
 
@@ -18,12 +19,36 @@ export default ({history})=>{
         skip: !shouldFetch,
         fetchPolicy: "network-only"
     });
+    const [updateReadYn] = useMutation(UPDATE_UNREAD);
     const [createRoomMutaion] = useMutation(CREATE_ROOM,{
         refetchQueries:() => [{
             query: ROOMS_QUERY,
             variables:{}
-        }]
+        }
+    ]
     });
+    const handleEnterRoom = async (id)=>{
+        try{
+            const {data} = await updateReadYn({
+                refetchQueries:() => [{
+                    query: ROOMS_QUERY,
+
+                },
+                {
+                    query: NEW_MESSAGES
+                }
+            ],
+                variables:{
+                    roomId:id
+                }
+            });
+            if(data.updateRead){
+                history.push(`/chat/${id}`)
+            }
+        }catch{
+
+        }
+    }
 
     const handleCreateRoom =async (toId)=>{
         console.log(toId);
@@ -84,6 +109,7 @@ export default ({history})=>{
             searchLoading={searchLoading}
             searchData={searchData}
             handleCreateRoom={handleCreateRoom}
+            handleEnterRoom={handleEnterRoom}
             />
     ) 
 }

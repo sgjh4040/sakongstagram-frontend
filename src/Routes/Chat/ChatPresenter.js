@@ -76,7 +76,8 @@ const ChatPresenter = (
         onKeyPress,
         searchLoading,
         searchData,
-        handleCreateRoom
+        handleCreateRoom,
+        handleEnterRoom
     }) => {
     if (loading) {
         return <Wrapper>
@@ -116,7 +117,7 @@ const ChatPresenter = (
                     <ScrollBox>
                         {data.seeRooms.map(room => {
                             return (
-                                <ChatCard key={room.id} me={data.me} id={room.id} participants={room.participants} />
+                                <ChatCard key={room.id} me={data.me} id={room.id} participants={room.participants} unReadCount={room.unReadCount} handleEnterRoom={handleEnterRoom} />
                             )
                         })}
                     </ScrollBox>

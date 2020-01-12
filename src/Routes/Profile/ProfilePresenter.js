@@ -153,7 +153,7 @@ export default ({ loading, avatarLoading, data, logOut, onImageChange }) => {
           <HeaderColumn>
             <Avatar size={size} url={avatar} />
 
-            <IconBox for="avatar-input">
+            <IconBox htmlFor="avatar-input">
               {isSelf ? (
                 <Plus />
               ) : (
