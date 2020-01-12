@@ -89,7 +89,7 @@ const ScrollBox = styled(Element)`
     min-height: 100px;
     max-height: 400px;
     @media (min-width: 576px){
-        height: 480px;
+        max-height: 480px;
     }
 `
 

@@ -30,7 +30,6 @@ const SearchResultContainer = styled.div`
     flex-direction: row;
     min-height: 100px;
     align-items:center;
-    justify-content: center;
     overflow:scroll;
 
 `;

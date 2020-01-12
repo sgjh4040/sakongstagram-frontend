@@ -40,6 +40,11 @@ const MessengerIcon = styled.span`
   right:5%;
   bottom:7%;
 `;
+const MovieIcon = styled.span`
+  position:fixed;
+  right:5%;
+  bottom:17%;
+`;
 
 const NewMessageCount = styled.span`
   display: flex;
@@ -79,22 +84,36 @@ export default () => {
             <Wrapper>
               <Routes isLoggedIn={isLoggedIn} />
               <Footer />
-              {isLoggedIn && <MessengerIcon>
-                <Link style={{ position: 'relative' }} to={'/chat'}>
-                  <img style={{ width: '50px', height: '50px' }} src={require('../assets/icon/messenger.png')}></img>
-                  {loading ? <></>
-                    : data.seeMessages.length === 0 ? <></>
-                      : (
-                        <NewMessageCount>
-                          <span>
-                            {data.seeMessages.length}
-                          </span>
-                        </NewMessageCount>
-                      )
-                  }
 
-                </Link>
-              </MessengerIcon>}
+              {isLoggedIn && (
+                <div>
+                  <MovieIcon>
+                    <a style={{ position: 'relative' }} href={'https://sgjh4040.github.io/movieql-client/#/'}>
+                      <img style={{ width: '50px', height: '50px' }} src={require('../assets/icon/movie.png')}></img>
+                    </a>
+                  </MovieIcon>
+                  <MessengerIcon>
+                    <Link style={{ position: 'relative' }} to={'/chat'}>
+                      <img style={{ width: '50px', height: '50px' }} src={require('../assets/icon/messenger.png')}></img>
+                      {loading ? <></>
+                        : data && data.seeMessages && data.seeMessages.length === 0 ? <></>
+                          : (
+                            data && data.seeMessages && data.seeMessages.length > 0 ? (
+                              <NewMessageCount>
+                                <span>
+                                  {data.seeMessages.length}
+                                </span>
+                              </NewMessageCount>
+                            )
+                              : <></>
+
+                          )
+                      }
+
+                    </Link>
+                  </MessengerIcon>
+                </div>
+              )}
 
             </Wrapper>
           </>
