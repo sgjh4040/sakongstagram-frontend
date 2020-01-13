@@ -13,6 +13,10 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import { ME } from '../SharedQueries';
+import {anal} from '../fbConfig';
+
+anal.logEvent('app start');
+
 const QUERY = gql`
   {
     isLoggedIn @client(always: true)
@@ -76,6 +80,7 @@ export default () => {
   return (
     <ThemeProvider theme={Theme}>
       <>
+
         <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js'></script>
         <GlobalStyles />
         <Router>
