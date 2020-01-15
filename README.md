@@ -1,68 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## SakongStagram
 
-## Available Scripts
+Open [40Stagram](https://kokomasakong.com)
 
-In the project directory, you can run:
+### 1. 소개
 
-### `npm start`
+* Instagram을 모티브로 하여 클로닝한 사이트 입니다
+* Node , Graphql , Apollo-Server ,Prisma 을 사용해 서버 구축
+* Image는 AWS S3를 사용해 저장
+* 폰으로도 이용가능한 반응형 웹사이트
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Stack
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+* Node
+* Graphql(언어)
+* Prisma
+* Apollo-Server
+* AWS-S3
 
-### `npm test`
+### 2. 기능
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* 로그인 : 개인 이메일로 인증코드를 보내어 로그인 하는 process
 
-### `npm run build`
+* 포스트 업로드 : 사진과 함께 포스트 
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* 프로필 사진 수정: AWS S3를 사용해 이미지 저장
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+* 좋아요 등록 기능
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* 댓글 작성 기능
 
-### `npm run eject`
+* 실시간 채팅 기능
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* firebase analytics를 logEvent 분석
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 첨부
 
-## Learn More
+### Github
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* [40Stagram Server](https://github.com/sgjh4040/sakongstargram)
+* [40Stagram front](https://github.com/sgjh4040/sakongstagram-frontend)
