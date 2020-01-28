@@ -12,6 +12,7 @@ import * as Scroll from 'react-scroll';
 import { Element, animateScroll as scroll, } from 'react-scroll';
 import {Close} from "./Icons"
 import FatText from "./FatText";
+import { width } from "dom-helpers";
 
  
 
@@ -248,10 +249,10 @@ export default withRouter(({ history }) => {
         <ul>
           <li>
             <div>
-            <FatText text={'수정사항:'}/> 포스트 디테일박스 css 수정, 채팅기능을 위한 client 수정(apollo-boost to apollo client)
+              <FatText text={'새해 복 많이 받으세요!'}/>
             </div>
             <div>
-            채팅기능 구현(2020-01-11)
+              <img style={{width:'100%'}} src={'http://www.urbanbrush.net/web/wp-content/uploads/edd/2019/01/urbanbrush-20190128114756103484.png'}></img>
             </div>
           </li>
           <br/>
